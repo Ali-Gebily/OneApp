@@ -38,7 +38,7 @@ http://aligebily-001-site1.dtempurl.com/frontend/index.html
 - you can register, login, logout, change password, reset password. When you register or reset password, you will be asked for the email first and then application will send you an email with code that you provide in next step of registration of resetting password. 
 - The landing page in this application does not have accurate data or design.
 - All data shown in portal is mocked at client, except for authentication data that can mocked at server or retrieved from database based on configuration set on web.config in OneApp.StartUp project
-- for sending emails, you have to configure appsettings related to smtp server and sender email.
+- For sending emails, you have to configure appsettings related to smtp server and sender email. you can hit this url(http://localhost:55475/api/textEncryption/Encrypt?clearText=yourpassword) to get the encoded password and set it in you mail settings. the "EmailFromEncodedPassword" key in web.config is not valid, set your email and your own password encoded using previous mentioned url. 
 - Unit and integration tests are not implemented yet.
 
 
