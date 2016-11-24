@@ -6,11 +6,11 @@ The backend of authentication supports SQLserver + MongoDB + Mock data repositor
 The application is divided into three layers
   - Data access layer
   - Web services(business) layer 
-  - UI layer(front end) layer
+  - UI(frontend) layer
 
-Application uses Ninject(http://www.ninject.org/) to manage dependency injection in the backend.
-Application uses Automapper(http://automapper.org/) to manage mapping between database objects and Data transfer objects (DTO).
+We use Ninject library (http://www.ninject.org/) to manage dependency injection in the backend. And we also use Automapper library (http://automapper.org/) to manage mapping between database objects and Data transfer objects (DTO).
 
+For 
  
 # Demo url
 http://aligebily-001-site1.dtempurl.com/frontend/index.html
