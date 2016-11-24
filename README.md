@@ -14,3 +14,4 @@ For
  
 # Demo url
 http://aligebily-001-site1.dtempurl.com/frontend/index.html
+Currenly: you can register, login, logout, change password, reset password. When you register or reset password, you will be asked for the email first and then application will send you an email with code that you provide in next step of registration of resetting password. 
