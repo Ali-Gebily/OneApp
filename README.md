@@ -27,10 +27,11 @@ http://aligebily-001-site1.dtempurl.com/frontend/index.html
 - open frontend folder(using visual studio code or any other tool), and open this file "src\app\common\oneAppProxy\services\oneAppConfiguration.service.ts" then set BackEndServicePath to the url you copied when you ran the server.
 
 - open nodejs.command prompt
-- navigate to frontend folder, and hit 
+- navigate to frontend folder, and hit
+	-> npm install 
 	-> npm start
 - after you see that server is ready in comand prompt, hit localhost:3000 in browser and start using portal.
---you can check ng2-admin(https://github.com/akveo/ng2-admin) for more details about running front end portal. 
+- Note: you can check ng2-admin(https://github.com/akveo/ng2-admin) for more details about running front end portal. 
 
 
 # Notes
