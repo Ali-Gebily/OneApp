@@ -74,5 +74,15 @@ namespace OneApp.Modules.Authentication.Data.Repositories.Mongo
         {
 
         }
+
+        public Task<List<IdentityUserDTO>> FindUsers(string usernamePart)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<IdentityRoleDTO>> GetRoles()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

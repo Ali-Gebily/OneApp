@@ -1,8 +1,8 @@
 # Backend
 /BackEnd/packages
-/BackEnd/**/bin/
-/BackEnd/**/obj/
-/BackEnd/**/logs/
+/BackEnd/*/bin/
+/BackEnd/*/obj/
+/BackEnd/*/logs/
 
 # FrontEnd
 /FrontEnd/node_modules
