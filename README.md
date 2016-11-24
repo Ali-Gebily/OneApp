@@ -4,4 +4,4 @@ Front end is based mainly on ng2-admin Angular 2 template(https://github.com/akv
 The backend of authentication supports SQLserver + MongoDB + Mock data repositories, and we are looking forward to supporting LDAP soon.
 
 # Demo url
-aligebily-001-site1.dtempurl.com/frontend/index.html
+http://aligebily-001-site1.dtempurl.com/frontend/index.html
