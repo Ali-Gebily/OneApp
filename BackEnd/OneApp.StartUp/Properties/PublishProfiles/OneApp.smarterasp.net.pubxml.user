@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAnkMHL+uhbE+a9+1ZVRYQbgAAAAACAAAAAAAQZgAAAAEAACAAAADHYDcFT7qcxOg4Sp12t7RAXSV7uN4y7RCw1ybCOtpKYwAAAAAOgAAAAAIAACAAAABCrc2rwYSaw7/DEf+cy9Z10JrmITf5fNhxEohspFaBNCAAAAD+Zw6eqCX4ZR75bURk9ZxR0c/BJj4V3m0yts3fJ3uLQUAAAACzOzflXtP7xGwMnMhY6U3SCk2pQ9hi3A19kewsenqBJ2PNumQu0fZ36ZJ324CGc0bIpG/PySRYtOd2DBUd45gB</EncryptedPassword>
+    <_PublishTargetUrl>ftp://ftp.smarterasp.net/OneApp</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/AutoMapper.dll">
+      <publishTime>12/08/2016 13:21:44</publishTime>
+    </File>
+    <File Include="bin/Castle.Core.dll">
+      <publishTime>10/25/2016 14:09:17</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>10/13/2016 16:59:39</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>10/13/2016 16:59:39</publishTime>
+    </File>
+    <File Include="bin/log4net.dll">
+      <publishTime>10/29/2016 16:25:53</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.EntityFramework.dll">
+      <publishTime>11/15/2016 02:51:13</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Owin.dll">
+      <publishTime>10/13/2016 16:59:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>10/13/2016 16:57:29</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Cors.dll">
+      <publishTime>10/23/2016 20:10:01</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>10/13/2016 16:59:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>10/23/2016 16:15:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Cookies.dll">
+      <publishTime>10/23/2016 15:35:18</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>10/13/2016 16:59:43</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.OAuth.dll">
+      <publishTime>10/13/2016 16:59:43</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>10/13/2016 16:59:32</publishTime>
+    </File>
+    <File Include="bin/MongoDB.Bson.dll">
+      <publishTime>10/13/2016 17:20:12</publishTime>
+    </File>
+    <File Include="bin/MongoDB.Driver.Core.dll">
+      <publishTime>10/13/2016 17:20:13</publishTime>
+    </File>
+    <File Include="bin/MongoDB.Driver.dll">
+      <publishTime>10/13/2016 17:20:14</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>10/13/2016 16:59:28</publishTime>
+    </File>
+    <File Include="bin/Ninject.dll">
+      <publishTime>10/25/2016 16:26:38</publishTime>
+    </File>
+    <File Include="bin/Ninject.Extensions.Interception.dll">
+      <publishTime>10/25/2016 14:07:50</publishTime>
+    </File>
+    <File Include="bin/Ninject.Extensions.Interception.DynamicProxy.dll">
+      <publishTime>10/25/2016 14:15:03</publishTime>
+    </File>
+    <File Include="bin/Ninject.Web.Common.dll">
+      <publishTime>10/25/2016 14:00:23</publishTime>
+    </File>
+    <File Include="bin/Ninject.WebApi.DependencyResolver.dll">
+      <publishTime>10/25/2016 14:53:48</publishTime>
+    </File>
+    <File Include="bin/OneApp.Common.Core.dll">
+      <publishTime>11/19/2016 14:09:18</publishTime>
+    </File>
+    <File Include="bin/OneApp.Common.WebServices.dll">
+      <publishTime>11/19/2016 14:09:19</publishTime>
+    </File>
+    <File Include="bin/OneApp.Modules.Authentication.Data.dll">
+      <publishTime>11/19/2016 14:09:20</publishTime>
+    </File>
+    <File Include="bin/OneApp.Modules.Authentication.WebServices.dll">
+      <publishTime>11/19/2016 14:09:21</publishTime>
+    </File>
+    <File Include="bin/OneApp.StartUp.dll">
+      <publishTime>11/19/2016 14:09:22</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>10/13/2016 16:59:42</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>10/13/2016 16:57:28</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>10/13/2016 16:57:28</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>10/13/2016 16:57:28</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>10/13/2016 16:57:28</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>10/13/2016 16:57:28</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>10/13/2016 16:57:29</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>10/13/2016 16:57:29</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>10/13/2016 16:57:29</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>10/13/2016 16:57:29</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>10/13/2016 16:57:29</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>10/13/2016 16:57:29</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>10/13/2016 16:57:29</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>10/13/2016 16:59:33</publishTime>
+    </File>
+    <File Include="bin/System.Web.Cors.dll">
+      <publishTime>10/23/2016 20:09:56</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>10/13/2016 16:59:33</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.Owin.dll">
+      <publishTime>10/23/2016 16:16:36</publishTime>
+    </File>
+    <File Include="bin/WebActivator.dll">
+      <publishTime>10/25/2016 14:34:05</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>10/23/2016 16:45:22</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>10/26/2016 13:25:31</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>11/20/2016 15:26:21</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,34 @@
+<div class="page-top clearfix" baScrollPosition maxHeight="50" (scrollChange)="scrolledChanged($event)" [ngClass]="{scrolled: isScrolled}">
+  <a routerLink="/pages/home" class="al-logo clearfix"><span>One</span>App</a>
+  <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon" *ngIf="authentication.isAuth"></a>
+
+
+  <div class="search" *ngIf="authentication.isAuth">
+    <i class="ion-ios-search-strong" ng-click="startSearch()"></i>
+    <input id="searchInput" type="text" placeholder="Search for...">
+  </div>
+
+  <div class="user-profile clearfix" *ngIf="authentication.isAuth">
+    <div class="dropdown al-user-profile">
+      <a class="profile-toggle-link dropdown-toggle" id="user-profile-dd" data-toggle="dropdown" aria-expanded="false">
+        <img src="{{ ( 'Ali pic.0014' | baProfilePicture ) }}">
+
+      </a>
+      <ul class="dropdown-menu top-dropdown-menu profile-dropdown" aria-labelledby="user-profile-dd">
+        <li class="dropdown-item"><i href="" class="dropdown-arr"></i></li>
+        <li class="dropdown-item"><a href="" (click)="showProfile()"><i class="fa fa-user"></i>Profile</a></li>
+        <li class="dropdown-item"><a href="" (click)="changePassword($event)"><i class="fa fa-user" >Change Password</i></a></li>
+        <li class="dropdown-item"><a href="" (click)="showSettings()"><i class="fa fa-cog"></i>Settings</a></li>
+        <li class="dropdown-item"><a href="" (click)="logout($event)" class="signout"><i class="fa fa-power-off"></i>Sign out</a></li>
+      </ul>
+    </div>
+    <ba-msg-center></ba-msg-center>
+
+  </div>
+
+  <div style="float:right">
+    <a routerLink="/pages/accounts/register" class="al-logo clearfix" style="padding-left:10px; font-size:14px;" *ngIf="!authentication.isAuth">Sign up</a>
+    <a routerLink="/pages/accounts/login" class="al-logo clearfix" style="padding-left:10px; font-size:14px;" *ngIf="!authentication.isAuth">Sign in</a>
+  </div>
+
+</div>

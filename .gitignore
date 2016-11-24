@@ -1,0 +1,19 @@
+# Backend
+/BackEnd/packages
+/BackEnd/**/bin/
+/BackEnd/**/obj/
+/BackEnd/**/logs/
+
+# FrontEnd
+/FrontEnd/node_modules
+/FrontEnd/dist
+ 
+# Documents
+/Documents
+ 
+# Deployments
+/Deployments
+ 
+# Databases
+/Databases 
+ 
