@@ -19,7 +19,7 @@ http://aligebily-001-site1.dtempurl.com/frontend/index.html
 ---------------
 - Tools [git, nodejs, Visual studio 2015, visual studio code]
 - open git bush, then hit this command
-	-> git clone https://github.com/Ali-Gebily/OneApp
+	- git clone https://github.com/Ali-Gebily/OneApp
 - open backend/OneApp.sln using VS2015
 - Right click on solution and click "Restore Nuget packages"
 - Run OneApp.StartUp project, then copy the base url as it will used in frontend as the service url, for example: 
@@ -28,8 +28,8 @@ http://aligebily-001-site1.dtempurl.com/frontend/index.html
 
 - open nodejs.command prompt
 - navigate to frontend folder, and hit
-	-> npm install 
-	-> npm start
+	- npm install 
+	- npm start
 - after you see that server is ready in comand prompt, hit localhost:3000 in browser and start using portal.
 - Note: you can check ng2-admin(https://github.com/akveo/ng2-admin) for more details about running front end portal. 
 
