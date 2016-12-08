@@ -32,6 +32,14 @@ namespace OneApp.Common.WebServices.Controllers
 
         }
 
+        [HttpGet]
+        public ErrorHttpActionResult RedirectToIndex()
+        {
+            HttpContext.Current.Response.Headers.Add("Location", "frontend/index.html");
+            return new ErrorHttpActionResult(HttpStatusCode.Redirect,
+               new ErrorResponse(""));
+      
+        }
 
 
 

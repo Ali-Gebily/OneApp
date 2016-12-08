@@ -33,10 +33,16 @@ namespace OneApp.Common.WebServices
 
 
             config.Routes.MapHttpRoute(
-                name: "Error404",
-                routeTemplate: "{*url}",
-                 defaults: new { controller = "Error", action = "Handle404" }
+                name: "RedirectToIndex",
+                routeTemplate: "",
+                 defaults: new { controller = "Error", action = "RedirectToIndex" }
             );
+            config.Routes.MapHttpRoute(
+             name: "Error404",
+             routeTemplate: "{*url}",
+              defaults: new { controller = "Error", action = "Handle404" }
+         );
+
 
             //handlers
             config.MessageHandlers.Add(new OneAppWebApiHandler());
