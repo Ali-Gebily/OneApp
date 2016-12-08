@@ -6,48 +6,40 @@
 
 
       <!--Color -->
-       <div class="form-group row" *ngIf="rule.style.color">
-        <label [attr.for]="rule.style.color.name" class="col-sm-3 form-control-label">{{rule.style.color.name}}</label>
+      <div class="form-group row" *ngIf="rule.style.color !=null">
+        <label for="color" class="col-sm-3 form-control-label"> Text Color</label>
         <div class="col-sm-5">
-          <input [(colorPicker)]="rule.style.color.value" [style.color]="rule.style.color.value" [attr.name]="rule.style.color.name"
-            class="form-control" [attr.id]="rule.style.color.css_property" readonly="true" value="Click to change"
-            [cpPosition]="'bottom'" [cpSaveClickOutside]="false" [cpOKButton]="true" [cpOKButtonClass]="'btn btn-primary btn-sm'"
-            [cpCancelButton]="true" [cpCancelButtonClass]="'btn btn-primary btn-sm'"
-             [cpOutputFormat]="'rgba'"
-              />
+          <input [(colorPicker)]="rule.style.color" [style.color]="rule.style.color" name="color" class="form-control" readonly="true"
+            value="Click to change" [cpPosition]="'bottom'" [cpSaveClickOutside]="false" [cpOKButton]="true" [cpOKButtonClass]="'btn btn-primary btn-sm'"
+            [cpCancelButton]="true" [cpCancelButtonClass]="'btn btn-primary btn-sm'" [cpOutputFormat]="'rgba'" />
         </div>
         <div class="col-sm-4">
-          <button class="btn btn-default" type="button" [disabled]="rule.style.color.value==rule.style.color.old_value"
-            (click)="resetValue(rule.style.color)" [style.background]="rule.style.color.old_value">Reset</button>
-          <button class="btn btn-default" type="button" [disabled]="rule.style.color.value==null || rule.style.color.value==''"
-            (click)="clearValue(rule.style.color)">clear</button>
+          <button class="btn btn-default" type="button" [disabled]="rule.style.color==rule.initial_style.color" (click)="resetColorValue('color')"
+            [style.background]="rule.initial_style.color">Undo</button>
+          <button class="btn btn-default" type="button" [disabled]="rule.style.color == EditRuleStyleComponent.DefaultColor" (click)="clearColorValue('color')">clear</button>
         </div>
       </div>
-      <!--background Color -->
-      <div class="form-group row" *ngIf="rule.style.background_color">
-        <label [attr.for]="rule.style.background_color.name" class="col-sm-3 form-control-label">{{rule.style.background_color.name}}</label>
+      <!--Background Color -->
+      <div class="form-group row" *ngIf="rule.style.background_color !=null">
+        <label for="color" class="col-sm-3 form-control-label"> Background Color</label>
         <div class="col-sm-5">
-          <input [(colorPicker)]="rule.style.background_color.value" [style.backgroundColor]="rule.style.background_color.value" [attr.name]="rule.style.background_color.name"
-            class="form-control" [attr.id]="rule.style.background_color.css_property" readonly="true" value="Click to change"
-            [cpPosition]="'bottom'" [cpSaveClickOutside]="false" [cpOKButton]="true" [cpOKButtonClass]="'btn btn-primary btn-sm'"
-            [cpCancelButton]="true" [cpCancelButtonClass]="'btn btn-primary btn-sm'"
-            [cpOutputFormat]="'rgba'"
-             />
+          <input [(colorPicker)]="rule.style.background_color" [style.backgroundColor]="rule.style.background_color" name="backgroundColor" class="form-control"
+            readonly="true" value="Click to change" [cpPosition]="'bottom'" [cpSaveClickOutside]="false" [cpOKButton]="true"
+            [cpOKButtonClass]="'btn btn-primary btn-sm'" [cpCancelButton]="true" [cpCancelButtonClass]="'btn btn-primary btn-sm'"
+            [cpOutputFormat]="'rgba'" />
         </div>
         <div class="col-sm-4">
-          <button class="btn btn-default" type="button" [disabled]="rule.style.background_color.value==rule.style.background_color.old_value"
-            (click)="resetValue(rule.style.background_color)" [style.background]="rule.style.background_color.old_value">Reset</button>
-          <button class="btn btn-default" type="button" [disabled]="rule.style.background_color.value==null || rule.style.background_color.value==''"
-            (click)="clearValue(rule.style.background_color)">clear</button>
+          <button class="btn btn-default" type="button" [disabled]="rule.style.background_color==rule.initial_style.background_colorcolor" (click)="resetColorValue('background_color')"
+            [style.background]="rule.initial_style.background_color">Undo</button>
+          <button class="btn btn-default" type="button" [disabled]="rule.style.background_color == EditRuleStyleComponent.DefaultColor" (click)="clearColorValue('background_color')">clear</button>
         </div>
       </div>
-
       <!--background Image -->
-      <div class="form-group row" *ngIf="rule.style.background_image">
-        <label [attr.for]="rule.style.background_image.name" class="col-sm-3 form-control-label">{{rule.style.background_image.name}}</label>
+      <div class="form-group row" *ngIf="rule.style.background_image != null">
+        <label for="background_image" class="col-sm-3 form-control-label">Background Image</label>
         <div class="col-sm-5">
           <ba-picture-uploader [picture]="getImage(rule.style.background_image)" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"
-            (filesSelected)="filesSelected($event,rule.style.background_image)"></ba-picture-uploader>
+            (filesSelected)="filesSelected('background_image', $event)"></ba-picture-uploader>
 
         </div>
 

@@ -14,7 +14,6 @@ using OneApp.Common.Core.Exceptions;
 using OneApp.Common.WebServices.Controllers;
 using OneApp.Common.WebServices.Models;
 using OneApp.Modules.Styles.Models;
-using OneApp.Modules.Styles.Models.CSSAttributes;
 using OneApp.Modules.Styles.Repositories;
 
 namespace OneApp.Modules.Styles.Controllers
@@ -78,51 +77,36 @@ namespace OneApp.Modules.Styles.Controllers
             // Get the uploaded files from the Files collection , add data to the fileinfo 
             foreach (var cssProperty in HttpContext.Current.Request.Files.AllKeys)
             {
-                CSSProperty p = (CSSProperty)int.Parse(cssProperty);
-                var fileAttribute = rule.Style.GetProperty(p);
 
-                if (fileAttribute != null)
-                {
-                    var httpPostedFile = HttpContext.Current.Request.Files[cssProperty];
+                var httpPostedFile = HttpContext.Current.Request.Files[cssProperty];
 
-                    int length = httpPostedFile.ContentLength;
-                    string contentType = httpPostedFile.ContentType;
-                    string name = Path.GetFileName(httpPostedFile.FileName);
+                int length = httpPostedFile.ContentLength;
+                string contentType = httpPostedFile.ContentType;
+                string name = Path.GetFileName(httpPostedFile.FileName);
 
-                    if (!string.IsNullOrEmpty(fileAttribute.Value))
-                    {
-                        await _repo.RemoveFileData(fileAttribute.Value);//remove old file 
-                    }
+                var fileData = new FileDataDTO();
+                fileData.Data = new byte[length];
+                fileData.Name = name;
+                fileData.Length = length;
+                fileData.ContentType = contentType;
+                httpPostedFile.InputStream.Read(fileData.Data, 0, length);
 
-                    var fileData = new FileDataDTO();
-                    fileData.Data = new byte[length];
-                    fileData.Name = name;
-                    fileData.Length = length;
-                    fileData.ContentType = contentType;
-                    httpPostedFile.InputStream.Read(fileData.Data, 0, length);
-
-                    fileAttribute.Value = await _repo.InsertFileData(fileData);
-                }
-                else
-                {
-                    throw new Exception("No atttibute defined for property=" + p);
-                }
+                rule.Style.SetProperty(cssProperty, await _repo.InsertFileData(fileData));
             }
-            string oldValue = null;
-            var oldRule = await _repo.GetRule(rule.Id);
-            var newFileProperties = rule.Style.GetFileProperties();
-            var oldFileProperties = oldRule.Style.GetFileProperties();
 
-            foreach (var newItem in newFileProperties)
+            //remove old files 
+            var oldRule = await _repo.GetRule(rule.Id);
+            var clientFilePropertiesValues = rule.Style.GetFilePropertiesValues();
+            var oldFilePropertiesValues = oldRule.Style.GetFilePropertiesValues();
+
+            foreach (var oldValue in oldFilePropertiesValues)
             {
-                if (newItem != null)
+
+                if (!clientFilePropertiesValues.Contains(oldValue))//the file is delete or replaced with another one, then delete old one
                 {
-                    oldValue = oldFileProperties.FirstOrDefault(attr => attr.CSSProperty == newItem.CSSProperty).Value;
-                    if (!string.IsNullOrEmpty(oldValue) && newItem.Value != oldValue)//old value is cleared
-                    {
-                        await _repo.RemoveFileData(oldValue);
-                    }
+                    await _repo.RemoveFileData(oldValue);
                 }
+
             }
             var updateRule = await _repo.UpdateRuleStyle(rule);
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppNavigationService, OneAppUIService }
     from '../../../common/oneAppProxy/services';
-import { RuleModel, AttributeModel } from '../models'
+import { RuleModel } from '../models'
 
 @Injectable()
 export class AppStyleService {
@@ -18,11 +18,10 @@ export class AppStyleService {
     updateRuleStyle(rule: RuleModel): Promise<any> {
 
         let formData: FormData = new FormData();
-        for (var key in rule.style) {
-            let attribute: AttributeModel = rule.style[key];
-            if (attribute != null && attribute.file) {
-                formData.append(attribute.css_property, attribute.file, attribute.file.name);
-            }
+        for (var key in rule.style.files) {
+            let file: File = rule.style.files[key];
+            formData.append(key, file, file.name);
+
         }
         formData.append("rule", JSON.stringify(rule));
         formData.append("base_url", this.oneAppConfigurationService.getCSSImageDownloadUrl());

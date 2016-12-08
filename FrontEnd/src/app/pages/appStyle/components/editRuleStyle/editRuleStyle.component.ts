@@ -2,11 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ColorPickerService } from 'angular2-color-picker';
 
-import { RuleModel, AttributeModel, CSSValueType } from '../../models'
+import { RuleModel, CSSValueType } from '../../models'
 import { AppStyleService } from '../../services/appStyle.service'
 
 
-const defaultColor: string = "rgba(0,0,0,0)";
 
 @Component({
   selector: 'editRuleStyle',
@@ -16,8 +15,10 @@ const defaultColor: string = "rgba(0,0,0,0)";
 export class EditRuleStyleComponent implements OnInit {
   @Input() rule: RuleModel;
   @Output() close = new EventEmitter();
+  static DefaultColor: string = "rgba(0,0,0,0)";
   navigated = false; // true if navigated here
   CSSValueType: any = CSSValueType;
+  EditRuleStyleComponent: any = EditRuleStyleComponent;
   Date: any = Date;
   constructor(
     private appStyleService: AppStyleService,
@@ -38,39 +39,58 @@ export class EditRuleStyleComponent implements OnInit {
         this.navigated = true;
         this.appStyleService.getRule(id)
           .then(rule => {
+            this.extendAttribute(rule);
             this.rule = rule;
-            this.extendAttribute();
           });
       } else {
         throw new Error("You have to specify id of the rule")
       }
     });
   }
-  private extendAttribute() {
-    for (var key in this.rule.style) {
-      let attr: AttributeModel = this.rule.style[key];
-      if (attr != null) {
-        if (attr.css_value_type == CSSValueType.Color && (attr.value == null || attr.value == "")) {
-          attr.value = defaultColor;
-        }
-        attr.old_value = attr.value //keep initial value to allow undo action
+  private clone(obj): any {
+    var cloneObj: any = {};
+    for (var key in obj) {
+      if (typeof obj[key] === "object") {
+        cloneObj[key] = this.clone(cloneObj[key]);
+      } else {
+        cloneObj[key] = obj[key];
       }
+    }
+    return cloneObj;
+  }
+  /*
+ null -> property is not included in style, so it won't be handled
+ "" -> property is included in style but without default value
+ */
+  private extendAttribute(rule) {
+    rule.initial_style = this.clone(rule.style);
+
+    for (var key in rule.style) {
+      if (this.getCSSValueType(key) == CSSValueType.Color
+        && (rule.style[key] == "")) {
+        rule.style[key] = EditRuleStyleComponent.DefaultColor;
+      }
+
     }
 
   }
   private removeAttributeExtension() {
     for (var key in this.rule.style) {
-      let attr: AttributeModel = this.rule.style[key];
-      if (attr != null) {
-        if (attr.css_value_type == CSSValueType.Color && attr.value == defaultColor) {
-          attr.value = null;
-        }
-        attr.old_value = attr.value //keep initial value to allow undo action
+      if (this.getCSSValueType(key) == CSSValueType.Color
+        && this.rule.style[key] == EditRuleStyleComponent.DefaultColor) {
+        this.rule.style[key] = "";
       }
     }
-
   }
-
+  private getCSSValueType(cssPropertyKey: string) {
+    if (cssPropertyKey == 'color' || cssPropertyKey == 'background_color') {
+      return CSSValueType.Color;
+    }
+    if (cssPropertyKey = "background_image") {
+      return CSSValueType.File;;
+    }
+    return CSSValueType.NotSet;
+  }
   save(): void {
     this.removeAttributeExtension();
     this.appStyleService.updateRuleStyle(this.rule)
@@ -83,7 +103,7 @@ export class EditRuleStyleComponent implements OnInit {
           style.innerHTML = formattedRule;
           document.head.appendChild(style);
         } else {
-          this.extendAttribute();
+          this.extendAttribute(this.rule);
           var oneAppStyleSheet = document.styleSheets["oneAppStyle"];
           var selector = this.rule.selector;
           for (var i = 0, len = oneAppStyleSheet.cssRules.length; i < len; i++) {
@@ -99,7 +119,7 @@ export class EditRuleStyleComponent implements OnInit {
           console.log(formattedRule);
         }
         this.goBack();
-      }).catch(error => { this.extendAttribute(); });
+      }).catch(error => { this.extendAttribute(this.rule); });
 
   }
 
@@ -107,24 +127,27 @@ export class EditRuleStyleComponent implements OnInit {
     this.close.emit(savedRule);
     if (this.navigated) { window.history.back(); }
   }
-  filesSelected(files: File[], attribute: AttributeModel) {
-    if (files != null && files.length > 0) {
-      attribute.file = files[0];
-    } else {
-      attribute.file = null;
-      attribute.value = null;
+  filesSelected(key: string, files: File[]) {
+    if (this.rule.style.files == undefined) {
+      this.rule.style.files = {};
     }
-
-
+    if (files != null && files.length > 0) {
+      this.rule.style.files[key] = files[0]
+    } else {
+      if (this.rule.style.files) {
+        delete this.rule.style.files[key];
+      }
+      this.rule.style[key] = "";
+    }
   }
-  clearValue(attribute: AttributeModel) { 
-    attribute.value = defaultColor;
+  clearColorValue(key: string) {
+    this.rule.style[key] = EditRuleStyleComponent.DefaultColor;
   }
-  resetValue(attribute: AttributeModel) {
-    attribute.value = attribute.old_value;
+  resetColorValue(key: string) {
+    this.rule.style[key] = this.rule.initial_style[key];
   }
-  getImage(attribute: AttributeModel) {
-    return this.appStyleService.getImage(attribute.value);
+  getImage(value: string) {
+    return this.appStyleService.getImage(value);
   }
 }
 

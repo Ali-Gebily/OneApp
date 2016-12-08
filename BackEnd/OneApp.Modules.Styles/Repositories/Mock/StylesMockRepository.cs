@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OneApp.Modules.Styles.Models;
-using OneApp.Modules.Styles.Models.CSSAttributes;
 
 namespace OneApp.Modules.Styles.Repositories.Mock
 {
@@ -22,7 +21,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock
                 Category = "Header",
                 Style = new StyleDTO()
                 {
-                    BackgroundColor = new BackgroundColorAttribute() { IsImportant = true }
+                    BackgroundColor = ""
 
                 }
 
@@ -35,7 +34,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock
                 Category = "Side Bar",
                 Style = new StyleDTO()
                 {
-                    BackgroundColor = new BackgroundColorAttribute() { IsImportant = true },
+                    BackgroundColor = "",
 
                 }
 
@@ -48,7 +47,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock
                 Category = "Side Bar",
                 Style = new StyleDTO()
                 {
-                    Color = new ColorAttribute() { IsImportant = true }
+                    Color = ""
 
                 }
 
@@ -62,7 +61,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock
                 Category = "Main Content",
                 Style = new StyleDTO()
                 {
-                    BackgroundImage = new BackgroundImageAttribute()
+                    BackgroundImage = ""
 
                 }
             }
@@ -88,18 +87,10 @@ namespace OneApp.Modules.Styles.Repositories.Mock
                 throw new Exception("No Css rule with Id=" + newRule.Id);
             }
             //we may use reflection too loop through all properties 
-            if (oldRule.Style.Color != null)
-            {
-                oldRule.Style.Color.Value = newRule.Style.Color.Value;
-            }
-            if (oldRule.Style.BackgroundColor != null)
-            {
-                oldRule.Style.BackgroundColor.Value = newRule.Style.BackgroundColor.Value;
-            }
-            if (oldRule.Style.BackgroundImage != null)
-            {
-                oldRule.Style.BackgroundImage.Value = newRule.Style.BackgroundImage.Value;
-            }
+            oldRule.Style.Color = newRule.Style.Color;
+            oldRule.Style.BackgroundColor = newRule.Style.BackgroundColor;
+            oldRule.Style.BackgroundImage = newRule.Style.BackgroundImage;
+
 
             return oldRule;
         }

@@ -4,64 +4,73 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using Newtonsoft.Json;
-using OneApp.Modules.Styles.Models.CSSAttributes;
 
 namespace OneApp.Modules.Styles.Models
 {
     public class StyleDTO
     {
-        [JsonProperty("color")]
-        public ColorAttribute Color { get; set; }
+        const string _color = "color";
+        const string _backgroundColor = "background_color";
+        const string _backgroundImage = "background_image";
 
-        [JsonProperty("background_color")]
-        public BackgroundColorAttribute BackgroundColor { get; set; }
 
-        [JsonProperty("background_image")]
-        public BackgroundImageAttribute BackgroundImage { get; set; }
+
+        [JsonProperty(_color)]
+        public string Color { get; set; }
+
+        [JsonProperty(_backgroundColor)]
+        public string BackgroundColor { get; set; }
+
+        [JsonProperty(_backgroundImage)]
+        public string BackgroundImage { get; set; }
 
 
         public string GetFormattedStyle(string baseUrl, int ruleId)
         {
-
             var sb = new StringBuilder();
-            if (Color != null)
+            if (!string.IsNullOrEmpty(Color))
             {
-                sb.Append(Color.Format(baseUrl, ruleId) + "\n");
+                sb.Append("color: " + Color + " !important; \n");
+            }
+            if (!string.IsNullOrEmpty(BackgroundColor))
+            {
+                sb.Append("background-color: " + BackgroundColor + " !important; \n");
             }
 
-            if (BackgroundColor != null)
+            if (!string.IsNullOrEmpty(BackgroundImage))
             {
-                sb.Append(BackgroundColor.Format(baseUrl, ruleId) + "\n");
-            }
+                sb.Append("background-image: url('" + baseUrl + "/" + BackgroundImage + "') !important; \n");
 
-            if (BackgroundImage != null)
-            {
-                sb.Append(BackgroundImage.Format(baseUrl, ruleId) + "\n");
             }
 
             return sb.ToString();
         }
 
-        public CSSAttributeDTO GetProperty(CSSProperty p)
+        public void SetProperty(string propertyName, string value)
         {
-            switch (p)
+            switch (propertyName)
             {
-                case CSSProperty.Color:
-                    return Color;
-                case CSSProperty.BackgroundColor:
-                    return BackgroundColor;
-                case CSSProperty.BackgroundImage:
-                    return BackgroundImage;
+                case _color:
+                    this.Color = value;
+                    break;
+                case _backgroundColor:
+                    this.BackgroundColor = value;
+                    break;
+                case _backgroundImage:
+                    this.BackgroundImage = value;
+                    break;
                 default:
-                    throw new NotImplementedException(p.ToString());
+                    throw new NotImplementedException("can not set property with key=" + propertyName);
             }
         }
-        public List<CSSAttributeDTO> GetFileProperties()
+        public List<string> GetFilePropertiesValues()
         {
-            var properties = new List<CSSAttributeDTO>();
-
-            properties.Add(BackgroundImage);
-            return properties;
+            var values = new List<string>();
+            if (!string.IsNullOrEmpty(BackgroundImage))
+            {
+                values.Add(BackgroundImage);
+            }
+            return values;
         }
     }
 }

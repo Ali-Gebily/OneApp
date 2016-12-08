@@ -83,12 +83,6 @@
   <ItemGroup>
     <Compile Include="Controllers\AppStyleController.cs" />
     <Compile Include="Injectors\StylesInjector.cs" />
-    <Compile Include="Models\CSSAttributes\BackgroundImageAttribute.cs" />
-    <Compile Include="Models\CSSAttributes\CSSAttributeDTO.cs" />
-    <Compile Include="Models\CSSAttributes\BackgroundColorAttribute.cs" />
-    <Compile Include="Models\CSSAttributes\ColorAttribute.cs" />
-    <Compile Include="Models\CSSAttributes\CSSProperty.cs" />
-    <Compile Include="Models\CSSAttributes\CSSValueType.cs" />
     <Compile Include="Models\FileDataDTO.cs" />
     <Compile Include="Models\RuleDTO.cs" />
     <Compile Include="Models\RuleSummaryDTO.cs" />

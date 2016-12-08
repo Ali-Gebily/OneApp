@@ -1,4 +1,4 @@
-import {StyleModel} from './style.model'
+import { StyleModel } from './style.model'
 
 export class RuleModel {
     id: number;
@@ -8,5 +8,5 @@ export class RuleModel {
     tag: string;
 
     style: StyleModel
-
+    initial_style: StyleModel;//used at reseting to initial value during editing
 }

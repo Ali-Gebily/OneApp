@@ -1,7 +1,8 @@
-import {AttributeModel} from './attribute.model'
 
 export class StyleModel {
-color: AttributeModel;
-background_color: AttributeModel;
-background_image: AttributeModel;
+  number;
+    color: string;
+    background_color: string;
+    background_image: string;
+    files: any;
 }
