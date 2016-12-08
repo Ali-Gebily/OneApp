@@ -162,21 +162,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OneApp.Common.Core\OneApp.Common.Core.csproj">
-      <Project>{5c98cd9f-6201-4046-a7a3-37d50ebe279e}</Project>
-      <Name>OneApp.Common.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OneApp.Common.WebServices\OneApp.Common.WebServices.csproj">
       <Project>{add683e1-0a8a-4665-89f4-c604d037a0c4}</Project>
       <Name>OneApp.Common.WebServices</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OneApp.Modules.Authentication.Data\OneApp.Modules.Authentication.Data.csproj">
-      <Project>{b124e7ee-5268-4afc-81f5-ea2a9c4efd7a}</Project>
-      <Name>OneApp.Modules.Authentication.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OneApp.Modules.Authentication.WebServices\OneApp.Modules.Authentication.WebServices.csproj">
       <Project>{19623a56-5e30-4b09-9f8c-0ebe41ed971e}</Project>
       <Name>OneApp.Modules.Authentication.WebServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OneApp.Modules.Styles\OneApp.Modules.Styles.csproj">
+      <Project>{a9ddb0e3-e717-47cb-b5aa-a3ef512403ad}</Project>
+      <Name>OneApp.Modules.Styles</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

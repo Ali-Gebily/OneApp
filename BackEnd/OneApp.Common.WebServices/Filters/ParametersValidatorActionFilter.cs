@@ -43,7 +43,7 @@ namespace OneApp.Common.WebServices.Filters
                 }
                 else
                 {
-                    if ( !(actionExecutedContext.Response.Content is OneAppStringContent))
+                    if ( !(actionExecutedContext.Response.Content is IOneAppContent))
                     {
                         throw new BusinessHttpResponseException($"Coding Error: All actions of ApiControllers should return BaseHttpActionResult service= {actionExecutedContext.ActionContext.ControllerContext.ControllerDescriptor.ControllerName}, action={actionExecutedContext.ActionContext.ActionDescriptor.ActionName}");
                     }

@@ -10,7 +10,7 @@ export class Layouts {
 
   public defaultPicture = 'assets/img/theme/no-photo.png';
   public profile:any = {
-    picture: 'assets/img/app/profile/Ali pic.0014.jpg'
+    picture: 'assets/img/app/profile/Alig.png'
   };
   public uploaderOptions:any = {
     // url: 'http://website.com/upload'

@@ -18,7 +18,7 @@ export class BaPageTopService {
 
     public logout(): void {
         var service = this;
-        this.oneAppHttpService.post('api/account/logout', null).then(function () {
+        this.oneAppHttpService.post('api/accounts/logout', null).then(function () {
             service.oneAppAuthenticationService.clearAuthenticationData();
             service.oneAppNavigationService.NavigateToHome();
         });

@@ -2,6 +2,19 @@ export const PAGES_MENU = [
   {
     path: 'pages',
     children: [
+       {
+        path: 'appStyle',
+        data: {
+          menu: {
+            title: 'App Styles',
+            icon: 'ion-star',
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      },
+      
       {
         path: 'dashboard',
         data: {

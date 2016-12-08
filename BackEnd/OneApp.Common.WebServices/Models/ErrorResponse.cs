@@ -35,7 +35,10 @@ namespace OneApp.Common.WebServices.Models
             {
                 foreach (var error in value.Errors)
                 {
-                    
+                    if (error.Exception != null)
+                    {
+                        throw error.Exception;
+                    }  
                     this.Errors.Add(new ErrorDetail(error.ErrorMessage));
                 }
             }

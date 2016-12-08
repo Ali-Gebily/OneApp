@@ -7,68 +7,87 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
+using OneApp.Common.Core.Exceptions;
 using OneApp.Modules.Authentication.Data.Model;
 
 namespace OneApp.Modules.Authentication.Data.Repositories.Mock
 {
     public class MockAuthenticationRepository : IAuthenticationRepository
     {
-       
-        private   UserManager<MockIdentityUser> _userManager;
+        static List<IdentityUserDTO> _users = new List<IdentityUserDTO>();
 
-        public MockAuthenticationRepository()
-        { 
-            _userManager = new UserManager<MockIdentityUser>(new MockUserStore<MockIdentityUser>());
+        static MockAuthenticationRepository()
+        {
+            _users.Add(new IdentityUserDTO
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = "ali.mmr2008@gmail.com",
+                Email = "ali.mmr2008@gmail.com",
+                PhoneNumber = "201068042823",
+                EmailConfirmed = true,
+                PasswordHash = HashPassword("123456")
 
-            var provider = new DpapiDataProtectionProvider("OneApp");
-            _userManager.UserTokenProvider = new DataProtectorTokenProvider<MockIdentityUser, string>(provider.Create("UserToken"))
-                  as IUserTokenProvider<MockIdentityUser, string>;
-             
+            });
         } 
+         public MockAuthenticationRepository()
+        {
+                      
+        }
 
         public async Task<IdentityResult> RegisterUser(string username, string password, string email, string phoneNumber,
             bool isEmailConfirmed)
         {
-            MockIdentityUser user = new MockIdentityUser
-            {
+            _users.Add(new IdentityUserDTO {
+                Id = Guid.NewGuid().ToString(),
                 UserName = username,
                 Email = email,
                 PhoneNumber = phoneNumber,
-                EmailConfirmed = isEmailConfirmed
-            };
-            var result = await _userManager.CreateAsync(user, password);
-
-            return result;
+                EmailConfirmed = isEmailConfirmed,
+                PasswordHash = HashPassword(password)
+                  
+             });
+ 
+            return new IdentityResult();
         }
+       static string HashPassword(string password)
+        {
+            return password;
 
+        }
         public async Task<IdentityUserDTO> FindUser(string userName, string password)
         {
-            MockIdentityUser user = await _userManager.FindAsync(userName, password);
+            return _users.FirstOrDefault(u => u.UserName.ToLower() == userName.ToLower() && u.PasswordHash == HashPassword(password));
 
-            return MemoryModelToDTOMapper.Map(user);
         }
         public async Task<IdentityUserDTO> FindUserWithEmail(string email)
         {
-            MockIdentityUser user = await _userManager.FindByEmailAsync(email);
+            return _users.FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
 
-            return MemoryModelToDTOMapper.Map(user);
         }
         public async Task<IdentityResult> ResetPassword(string userId, string token, string newPassword)
         {
-            IdentityResult result = await _userManager.ResetPasswordAsync(userId, token, newPassword);
-            return result;
+            var user = _users.FirstOrDefault(u => u.Id == userId);
+            user.PasswordHash = HashPassword(newPassword);
+             return new IdentityResult() ;
         }
         public async Task<string> GeneratePasswordResetToken(string userId)
         {
 
-            return await _userManager.GeneratePasswordResetTokenAsync(userId);
+            return Guid.NewGuid().ToString();
         }
         public async Task<IdentityResult> ChangePassword(string userId, string currentPassword, string newPassword)
         {
-            return await _userManager.ChangePasswordAsync(userId, currentPassword, newPassword);
+            var user = _users.FirstOrDefault(u => u.Id == userId);
+            if (user.PasswordHash != HashPassword(currentPassword))
+            {
+                throw new BusinessException("Current password is invalid");
+            }
+            user.PasswordHash = HashPassword(newPassword);
+            return new IdentityResult();
+
         }
         public void Dispose()
-        { 
+        {
 
         }
 

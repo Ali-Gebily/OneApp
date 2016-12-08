@@ -3,9 +3,9 @@ import { Component, ViewEncapsulation, ViewContainerRef } from '@angular/core';
 import { GlobalState } from './global.state';
 import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from './theme/services';
 import { layoutPaths } from './theme/theme.constants';
-import { BaThemeConfig } from './theme/theme.config';
-import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppNavigationService,OneAppUIService }  from './common/oneAppProxy/services';
- 
+import { BaThemeConfig } from './theme/theme.config'; 
+import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppNavigationService, OneAppUIService } from './common/oneAppProxy/services';
+
 /*
  * App Component
  * Top Level Component
@@ -32,7 +32,10 @@ export class App {
     private _config: BaThemeConfig,
     private viewContainerRef: ViewContainerRef,
     private oneAppAuthenticationService: OneAppAuthenticationService,
-    private oneAppNavigationService: OneAppNavigationService) {
+    private oneAppNavigationService: OneAppNavigationService,
+    private oneAppHttpService: OneAppHttpService,
+    private oneAppConfigurationService: OneAppConfigurationService
+  ) {
 
     this._loadImages();
 
@@ -41,7 +44,15 @@ export class App {
     });
     oneAppAuthenticationService.loadData();
     oneAppNavigationService.configureNavigation();
-
+  BaThemePreloader.registerLoader(oneAppHttpService.get("/api/appStyle/getFormattedAppStyle?base_url="+
+  this.oneAppConfigurationService.getCSSImageDownloadUrl()).then(function name(result: any) {
+      console.log(result);
+      var style = document.createElement('style');
+      style.type = 'text/css';
+      style.innerHTML = result;
+      style.id="oneAppStyle";
+      document.head.appendChild(style);
+    }))
   }
 
   public ngAfterViewInit(): void {

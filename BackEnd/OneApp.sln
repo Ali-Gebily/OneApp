@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneApp.Common.WebServices.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneApp.Common.Core.Tests", "OneApp.Common.Core.Tests\OneApp.Common.Core.Tests.csproj", "{F5BD9A54-0751-4AE1-8784-8905742EC59A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneApp.Modules.Styles", "OneApp.Modules.Styles\OneApp.Modules.Styles.csproj", "{A9DDB0E3-E717-47CB-B5AA-A3EF512403AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{F5BD9A54-0751-4AE1-8784-8905742EC59A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5BD9A54-0751-4AE1-8784-8905742EC59A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5BD9A54-0751-4AE1-8784-8905742EC59A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9DDB0E3-E717-47CB-B5AA-A3EF512403AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9DDB0E3-E717-47CB-B5AA-A3EF512403AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9DDB0E3-E717-47CB-B5AA-A3EF512403AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9DDB0E3-E717-47CB-B5AA-A3EF512403AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

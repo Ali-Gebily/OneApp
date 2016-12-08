@@ -51,7 +51,9 @@ export class OneAppAuthenticationService {
       this._authentication.expires_in = authenticationData.expires_in;
     }
   }
-
+private LoadStyle(){
+  
+}
   public getAuthenticationData(): AuthenticationData {
     return this._authentication
   };

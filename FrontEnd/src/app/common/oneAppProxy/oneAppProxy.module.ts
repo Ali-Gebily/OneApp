@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router'; 
+import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppNavigationService, 
+  OneAppUIService }
+    from './services';
 
-import { OneAppAuthenticationService } from './services/oneAppAuthentication.service';
-import { OneAppHttpService } from './services/oneAppHttp.service';
-import { OneAppNavigationService } from './services/oneAppNavigation.service';
-import { OneAppConfigurationService } from './services/oneAppConfiguration.service';
-import { OneAppUIService } from './services/oneAppUI.service';
 import { NgaModule } from '../../theme/nga.module';
 
 
@@ -16,4 +14,6 @@ import { NgaModule } from '../../theme/nga.module';
   providers: [OneAppAuthenticationService, OneAppHttpService,
     OneAppNavigationService, OneAppConfigurationService,OneAppUIService]
 })
-export class OneAppProxyModule { }
+export class OneAppProxyModule { 
+ 
+}

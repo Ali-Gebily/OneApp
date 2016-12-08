@@ -125,7 +125,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Models\ChangePasswordViewModel.cs" />
     <Compile Include="Models\FindUsersFilterModel.cs" />
     <Compile Include="Models\SendEmailVerificationCodeViewModel.cs" />

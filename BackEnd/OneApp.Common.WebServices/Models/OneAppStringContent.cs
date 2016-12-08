@@ -9,7 +9,7 @@ using System.Web;
 
 namespace OneApp.Common.WebServices.Models
 {
-    public class OneAppStringContent : StringContent
+    public class OneAppStringContent : StringContent, IOneAppContent
     {
         private BaseResponse _response;
 

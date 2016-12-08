@@ -143,6 +143,10 @@
     <Compile Include="Models\BaseResponse.cs" />
     <Compile Include="Models\ErrorDetail.cs" />
     <Compile Include="Models\ErrorResponse.cs" />
+    <Compile Include="Models\IOneAppContent.cs" />
+    <Compile Include="Models\MediaTypeHttpActionResult.cs" />
+    <Compile Include="Models\MediaTypeResponse.cs" />
+    <Compile Include="Models\OneAppMediaContent.cs" />
     <Compile Include="Models\OneAppStringContent.cs" />
     <Compile Include="Models\SuccessResponse.cs" />
     <Compile Include="Selectors\HttpNotFoundControllerActionSelector.cs" />

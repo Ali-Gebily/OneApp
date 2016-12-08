@@ -21,11 +21,11 @@ using OneApp.Modules.Authentication.WebServices.Models;
 namespace OneApp.Modules.Authentication.WebServices.Controllers
 {
     [Authorize]
-    public class AccountController : BaseApiController
+    public class AccountsController : BaseApiController
     {
         private IAuthenticationRepository _repo = null;
         private IEmailSender _emailSender = null;
-        public AccountController(IAuthenticationRepository repository, IEmailSender emailSender)
+        public AccountsController(IAuthenticationRepository repository, IEmailSender emailSender)
         {
             _repo = repository;
             _emailSender = emailSender;

@@ -13,7 +13,7 @@ namespace OneApp.Common.Core.Utilities
         public static IEnumerable<Type> GetOneAppTypesOfType<T>()
         {
             var type = typeof(T);
-            var types = AppDomain.CurrentDomain.GetAssemblies().Where(ass => ass.GetCustomAttributes(typeof(OneAppAssemblyAttribute), false).Length > 0)
+            var types = AppDomain.CurrentDomain.GetAssemblies().Where(s=> s.FullName.ToLower().Contains("oneapp"))//.Where(ass => ass.GetCustomAttributes(typeof(OneAppAssemblyAttribute), false).Length > 0)
                 .SelectMany(s => s.GetTypes())
                 .Where(p => type.IsAssignableFrom(p));
 

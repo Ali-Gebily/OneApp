@@ -18,14 +18,14 @@ export class AccountsService {
     }
 
     public sendEmailVerificationCode(sendEmailVerificationCodeModel: SendEmailVerificationCodeModel): Promise<any> {
-        return this.oneAppHttpService.post('api/account/sendEmailVerificationCode', sendEmailVerificationCodeModel);
+        return this.oneAppHttpService.post('api/accounts/sendEmailVerificationCode', sendEmailVerificationCodeModel);
     };
 
     public register(userModel: UserModel): Promise<any> {
 
         this.oneAppAuthenticationService.clearAuthenticationData();
         var accountService = this;
-        return this.oneAppHttpService.post('api/account/register', userModel).then(function () {
+        return this.oneAppHttpService.post('api/accounts/register', userModel).then(function () {
             accountService.login({ username: userModel.username, password: userModel.password });
         });
     };
@@ -53,19 +53,19 @@ export class AccountsService {
     };
 
     public verifyForgotPasswordEmail(verifyForgotPasswordEmailModel: VerifyForgotPasswordEmailModel): Promise<any> {
-        return this.oneAppHttpService.post('api/account/verifyForgotPasswordEmail', verifyForgotPasswordEmailModel);
+        return this.oneAppHttpService.post('api/accounts/verifyForgotPasswordEmail', verifyForgotPasswordEmailModel);
     };
 
     public resetPassword(resetPasswordModel: ResetPasswordModel): Promise<any> {
         var service = this;
-        return this.oneAppHttpService.post('api/account/resetPassword', resetPasswordModel).then(function () {
+        return this.oneAppHttpService.post('api/accounts/resetPassword', resetPasswordModel).then(function () {
             service.oneAppAuthenticationService.clearAuthenticationData();
 
         });
     };
     public changePassword(changePasswordModel: ChangePasswordModel): Promise<any> {
         var service = this;
-        return this.oneAppHttpService.post('api/account/changePassword', changePasswordModel).then(
+        return this.oneAppHttpService.post('api/accounts/changePassword', changePasswordModel).then(
             function () {
                 service.oneAppAuthenticationService.clearAuthenticationData();
                 service.oneAppNavigationService.NavigateToLogin();

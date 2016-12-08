@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Security;
 using System.Web.SessionState;
-using OneApp.Common.Core.Managers.Logs;
 using OneApp.Common.WebServices.Managers;
 
 namespace OneApp.StartUp
