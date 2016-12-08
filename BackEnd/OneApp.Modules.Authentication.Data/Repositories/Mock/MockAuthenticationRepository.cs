@@ -37,6 +37,12 @@ namespace OneApp.Modules.Authentication.Data.Repositories.Mock
         public async Task<IdentityResult> RegisterUser(string username, string password, string email, string phoneNumber,
             bool isEmailConfirmed)
         {
+            var existingUser= _users.FirstOrDefault(u => u.UserName.ToLower() == username.ToLower() || u.Email.ToLower() == email.ToLower());
+            if(existingUser!=null)
+            {
+                throw new BusinessException("the username or email used is existing");
+
+            }
             _users.Add(new IdentityUserDTO {
                 Id = Guid.NewGuid().ToString(),
                 UserName = username,

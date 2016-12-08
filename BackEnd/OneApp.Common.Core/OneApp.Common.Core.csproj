@@ -87,6 +87,7 @@
     <Compile Include="Managers\Encryption\TextEncryptionManager.cs" />
     <Compile Include="Models\AppDataSource.cs" />
     <Compile Include="Models\ConfigurationDataSource.cs" />
+    <Compile Include="Models\Emailchannel.cs" />
     <Compile Include="Models\GenerateCodeModel.cs" />
     <Compile Include="Injectors\IOneAppNinjectResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

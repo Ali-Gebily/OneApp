@@ -25,66 +25,84 @@ export class OneAppHttpService {
     }
 
     private basePath = this.oneAppConfigurationService.BackEndServicePath;// '/'; 
-
     private makeRequest(method: string, url: string, data: any, options?: any): Promise<any> {
-
-        method = method.toLowerCase();
-
-        //start with the uri
-        url = this.basePath + url;
-        if (!options) {
-            options = {};
-        }
-
-
-        /*The response object has these properties:
-       data – {string|Object} – The response body transformed with the transform functions.
-       status – {number} – HTTP status code of the response.
-       headers – {function([headerName])} – Header getter function.
-       options – {Object} – The optionsuration object that was used to generate the request.
-       statusText – {string} – HTTP status text of the response.
-       */
-        //A response status code between 200 and 299 is considered a success status and will result in the success callback being called. 
+        return new Promise((resolve, reject) => {
+            var service = this;
+            method = method.toLowerCase();
+            //start with the uri
+            url = this.basePath + url;
+            if (!options) {
+                options = {};
+            }
 
 
-        if (!options) {
-            options = {};
-        }
-        if (!options.headers) {
-            options.headers = {};
-        }
-        var authenticationData = this.oneAppAuthenticationService.getAuthenticationData();
-        if (authenticationData.access_token) {
-            options.headers['Authorization'] = authenticationData.token_type +
-                ' ' + authenticationData.access_token;
-        }
+            /*The response object has these properties:
+           data – {string|Object} – The response body transformed with the transform functions.
+           status – {number} – HTTP status code of the response.
+           headers – {function([headerName])} – Header getter function.
+           options – {Object} – The optionsuration object that was used to generate the request.
+           statusText – {string} – HTTP status text of the response.
+           */
+            //A response status code between 200 and 299 is considered a success status and will result in the success callback being called. 
 
-        var requestArgs: any = {};
-        requestArgs.url = url;
-        requestArgs.method = method;
-        requestArgs.body = data;
-        requestArgs.headers = options.headers;
-        var request = new Request(requestArgs);
-        var service = this;
 
-        this.oneAppUIService.showLoading();
-        return this.http.request(request, options).toPromise()
-            .then(function handleSuccess(response: any): Promise<any> {
-                service.oneAppUIService.hideLoading();
-                console.log(response);
-                var data = response.json();
-                //in all cases except login, we well have response object with result field even it's null
-                //so we will pass the result except in login, we will return full response
-                if (data.result !== undefined) {
-                    data = data.result;
-                }
-                return Promise.resolve(data);
-            })
-            .catch(function handleError(response: Response | any) {
-                service.handleError(response, service);
-            });
+            if (!options) {
+                options = {};
+            }
+            if (!options.headers) {
+                options.headers = {};
+            }
+            var authenticationData = this.oneAppAuthenticationService.getAuthenticationData();
+            if (authenticationData.access_token) {
+                options.headers['Authorization'] = authenticationData.token_type +
+                    ' ' + authenticationData.access_token;
+            }
+
+            var requestArgs: any = {};
+            requestArgs.url = url;
+            requestArgs.method = method;
+            requestArgs.body = data;
+            requestArgs.headers = options.headers;
+            var request = new Request(requestArgs);
+
+            this.oneAppUIService.showLoading();
+
+            return this.http.request(request, options).toPromise()
+                .then(function handleSuccess(response: any) {
+                    resolve(service.handleSuccess(service, response))
+                })
+                .catch(function handleError(response: Response | any) {
+                    reject(service.handleError(service, response));
+                });
+        });
     }
-    handleError(response: Response | any, service: OneAppHttpService) {
+
+    private handleSuccess(service: OneAppHttpService, response: any) {
+        console.log(response);
+        service.oneAppUIService.hideLoading();
+
+        return service.getData(response);
+    }
+    private getData(response: any) {
+        if (response.response) {
+            response = response.response;
+        }
+        var data = response;
+        if (response.json) {
+            data = response.json();
+        }
+        else if (typeof (response) == "string") {
+            data = JSON.parse(response)
+        }
+        else {
+            throw new Error("not handled response type");
+        }
+        if (data.result !== undefined) {
+            data = data.result;
+        }
+        return data;
+    }
+    private handleError(service: OneAppHttpService, response: Response | any) {
         service.oneAppUIService.hideLoading();
         console.log(response);
         if (response.status == 401) {//UnAuthorized
@@ -95,13 +113,9 @@ export class OneAppHttpService {
             var errorMessage = null;;
             if (response.status == 0) { //
                 errorMessage = "Unexpected error: please check your connection to the server";
-            } else {
-                var data = null;
-                if (response.json) {
-                    data = response.json();
-                } else {
-                    data = response;
-                }
+            }
+            else {
+                var data = service.getData(response);
                 if (data) {
                     if (data.errors) {//normal errors
                         errorMessage = data.errors.map(function (elem) {
@@ -120,8 +134,9 @@ export class OneAppHttpService {
                 }
             }
             service.oneAppUIService.showError(errorMessage);
-            return Promise.reject(response.message || response);
+            return response.message || response;
         }
+
     }
 
 
@@ -139,23 +154,15 @@ export class OneAppHttpService {
             url = this.basePath + url;
             let xhr: XMLHttpRequest = new XMLHttpRequest();
 
-
-
             let service: OneAppHttpService = this;
             xhr.onreadystatechange = () => {
                 console.log(xhr);
                 if (xhr.readyState === 4) {
                     service.oneAppUIService.hideLoading();
                     if (xhr.status === 200) {
-                        var data = JSON.parse(xhr.response)
-                        //in all cases except login, we well have response object with result field even it's null
-                        //so we will pass the result except in login, we will return full response
-                        if (data.result !== undefined) {
-                            data = data.result;
-                        }
-                        resolve(data);
+                        resolve(service.handleSuccess(service, xhr.response));
                     } else {
-                        service.handleError(xhr, service);
+                        reject(service.handleError(service, xhr));
                         //  reject(xhr.response);
                     }
                 }

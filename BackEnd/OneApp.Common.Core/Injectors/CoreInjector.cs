@@ -15,10 +15,10 @@ namespace OneApp.Common.Core.Injectors
 
         public void RegisterServices(IOneAppKernel kernel)
         {
-            var dataSource = OneAppConfigurationKeys.AppDataSource;
-            switch (dataSource)
+            var emailchannel = OneAppConfigurationKeys.Emailchannel;
+            switch (emailchannel)
             {
-                case AppDataSource.Mock:
+                case Emailchannel.Mock:
                     kernel.BindConcerteToAbstact<IEmailSender, EmailMockSender>();
                     break;
                 default:

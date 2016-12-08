@@ -13,7 +13,7 @@ namespace OneApp.Common.Core.Managers.Settings
         const string _ConfigurationDataSourceKey = "ConfigurationDataSource";
         const string _AppDataSourceKey = "AppDataSource";
         const string _ShowExceptionKey = "ShowException";
-
+        const string _EmailChannelKey = "EmailChannel";
         public static ConfigurationDataSource ConfigurationDataSource
         {
             get
@@ -29,7 +29,14 @@ namespace OneApp.Common.Core.Managers.Settings
                 return (AppDataSource)int.Parse(SettingsManager.Instance.GetValue(_AppDataSourceKey));
             }
         }
-       
+
+        public static Emailchannel Emailchannel
+        {
+            get
+            {
+                return (Emailchannel)int.Parse(SettingsManager.Instance.GetValue(_EmailChannelKey));
+            }
+        }
 
         public static bool ShowException
         {
