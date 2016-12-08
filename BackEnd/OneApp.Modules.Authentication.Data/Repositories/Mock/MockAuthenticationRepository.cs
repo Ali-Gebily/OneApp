@@ -52,8 +52,8 @@ namespace OneApp.Modules.Authentication.Data.Repositories.Mock
                 PasswordHash = HashPassword(password)
                   
              });
- 
-            return new IdentityResult();
+
+            return IdentityResult.Success;
         }
        static string HashPassword(string password)
         {
@@ -74,7 +74,7 @@ namespace OneApp.Modules.Authentication.Data.Repositories.Mock
         {
             var user = _users.FirstOrDefault(u => u.Id == userId);
             user.PasswordHash = HashPassword(newPassword);
-             return new IdentityResult() ;
+            return IdentityResult.Success;
         }
         public async Task<string> GeneratePasswordResetToken(string userId)
         {
@@ -89,7 +89,7 @@ namespace OneApp.Modules.Authentication.Data.Repositories.Mock
                 throw new BusinessException("Current password is invalid");
             }
             user.PasswordHash = HashPassword(newPassword);
-            return new IdentityResult();
+            return IdentityResult.Success;
 
         }
         public void Dispose()
