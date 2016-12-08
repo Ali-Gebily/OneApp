@@ -7,11 +7,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAnkMHL+uhbE+a9+1ZVRYQbgAAAAACAAAAAAAQZgAAAAEAACAAAADHYDcFT7qcxOg4Sp12t7RAXSV7uN4y7RCw1ybCOtpKYwAAAAAOgAAAAAIAACAAAABCrc2rwYSaw7/DEf+cy9Z10JrmITf5fNhxEohspFaBNCAAAAD+Zw6eqCX4ZR75bURk9ZxR0c/BJj4V3m0yts3fJ3uLQUAAAACzOzflXtP7xGwMnMhY6U3SCk2pQ9hi3A19kewsenqBJ2PNumQu0fZ36ZJ324CGc0bIpG/PySRYtOd2DBUd45gB</EncryptedPassword>
-    <_PublishTargetUrl>ftp://ftp.smarterasp.net/OneApp</_PublishTargetUrl>
+    <_PublishTargetUrl>D:\git\OneApp\Deployments\temp</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AutoMapper.dll">
-      <publishTime>12/08/2016 13:21:44</publishTime>
+      <publishTime>08/12/2016 13:21:44</publishTime>
     </File>
     <File Include="bin/Castle.Core.dll">
       <publishTime>10/25/2016 14:09:17</publishTime>
@@ -26,7 +26,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/29/2016 16:25:53</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>10/13/2016 16:59:42</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.EntityFramework.dll">
       <publishTime>11/15/2016 02:51:13</publishTime>
@@ -35,7 +35,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/13/2016 16:59:42</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
-      <publishTime>10/13/2016 16:57:29</publishTime>
+      <publishTime>06/15/2015 02:06:24</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.Cors.dll">
       <publishTime>10/23/2016 20:10:01</publishTime>
@@ -68,7 +68,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/13/2016 17:20:14</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>10/13/2016 16:59:28</publishTime>
+      <publishTime>08/03/2014 21:33:56</publishTime>
     </File>
     <File Include="bin/Ninject.dll">
       <publishTime>10/25/2016 16:26:38</publishTime>
@@ -86,67 +86,70 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/25/2016 14:53:48</publishTime>
     </File>
     <File Include="bin/OneApp.Common.Core.dll">
-      <publishTime>11/19/2016 14:09:18</publishTime>
+      <publishTime>12/08/2016 02:57:42</publishTime>
     </File>
     <File Include="bin/OneApp.Common.WebServices.dll">
-      <publishTime>11/19/2016 14:09:19</publishTime>
+      <publishTime>12/08/2016 02:57:46</publishTime>
     </File>
     <File Include="bin/OneApp.Modules.Authentication.Data.dll">
-      <publishTime>11/19/2016 14:09:20</publishTime>
+      <publishTime>12/08/2016 02:57:49</publishTime>
     </File>
     <File Include="bin/OneApp.Modules.Authentication.WebServices.dll">
-      <publishTime>11/19/2016 14:09:21</publishTime>
+      <publishTime>12/08/2016 02:57:51</publishTime>
+    </File>
+    <File Include="bin/OneApp.Modules.Styles.dll">
+      <publishTime>12/08/2016 02:57:48</publishTime>
     </File>
     <File Include="bin/OneApp.StartUp.dll">
-      <publishTime>11/19/2016 14:09:22</publishTime>
+      <publishTime>12/08/2016 02:57:52</publishTime>
     </File>
     <File Include="bin/Owin.dll">
       <publishTime>10/13/2016 16:59:42</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
-      <publishTime>10/13/2016 16:57:28</publishTime>
+      <publishTime>06/18/2015 20:19:46</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
-      <publishTime>10/13/2016 16:57:28</publishTime>
+      <publishTime>06/18/2015 20:19:46</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
-      <publishTime>10/13/2016 16:57:28</publishTime>
+      <publishTime>06/18/2015 20:19:46</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
-      <publishTime>10/13/2016 16:57:28</publishTime>
+      <publishTime>06/18/2015 20:19:44</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
-      <publishTime>10/13/2016 16:57:28</publishTime>
+      <publishTime>06/18/2015 20:19:46</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
-      <publishTime>10/13/2016 16:57:29</publishTime>
+      <publishTime>06/18/2015 20:19:46</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
-      <publishTime>10/13/2016 16:57:29</publishTime>
+      <publishTime>06/18/2015 20:19:46</publishTime>
     </File>
     <File Include="bin/roslyn/System.Collections.Immutable.dll">
-      <publishTime>10/13/2016 16:57:29</publishTime>
+      <publishTime>06/18/2015 20:19:46</publishTime>
     </File>
     <File Include="bin/roslyn/System.Reflection.Metadata.dll">
-      <publishTime>10/13/2016 16:57:29</publishTime>
+      <publishTime>06/18/2015 20:19:46</publishTime>
     </File>
     <File Include="bin/roslyn/vbc.exe">
-      <publishTime>10/13/2016 16:57:29</publishTime>
+      <publishTime>06/18/2015 20:19:46</publishTime>
     </File>
     <File Include="bin/roslyn/VBCSCompiler.exe">
-      <publishTime>10/13/2016 16:57:29</publishTime>
+      <publishTime>06/18/2015 20:19:46</publishTime>
     </File>
     <File Include="bin/roslyn/VBCSCompiler.exe.config">
-      <publishTime>10/13/2016 16:57:29</publishTime>
+      <publishTime>06/18/2015 20:19:46</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
-      <publishTime>10/13/2016 16:59:33</publishTime>
+      <publishTime>01/28/2015 04:02:42</publishTime>
     </File>
     <File Include="bin/System.Web.Cors.dll">
       <publishTime>10/23/2016 20:09:56</publishTime>
     </File>
     <File Include="bin/System.Web.Http.dll">
-      <publishTime>10/13/2016 16:59:33</publishTime>
+      <publishTime>01/28/2015 04:02:54</publishTime>
     </File>
     <File Include="bin/System.Web.Http.Owin.dll">
       <publishTime>10/23/2016 16:16:36</publishTime>
@@ -155,13 +158,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/25/2016 14:34:05</publishTime>
     </File>
     <File Include="Global.asax">
-      <publishTime>10/23/2016 16:45:22</publishTime>
+      <publishTime>12/04/2016 02:20:51</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>10/26/2016 13:25:31</publishTime>
+      <publishTime>12/04/2016 02:20:51</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/20/2016 15:26:21</publishTime>
+      <publishTime>12/08/2016 02:57:56</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -9,7 +9,6 @@ import { AppStyleService } from '../../services/appStyle.service'
 const defaultColor: string = "rgba(0,0,0,0)";
 
 @Component({
-  moduleId: module.id,
   selector: 'editRuleStyle',
   templateUrl: 'editRuleStyle.html',
   styleUrls: ['editRuleStyle.scss']
