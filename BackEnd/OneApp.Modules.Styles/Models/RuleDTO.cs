@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization; 
+using Newtonsoft.Json.Serialization;
+using OneApp.Modules.Styles.Repositories.Mock.Models;
 
 namespace OneApp.Modules.Styles.Models
 {
@@ -19,7 +20,15 @@ namespace OneApp.Modules.Styles.Models
             return new StringBuilder(Selector + " {\n").Append(Style.GetFormattedStyle(baseUrl,this.Id)).Append("}").ToString();
         }
 
+        public RuleDTO()
+        {
 
+        }
+        public RuleDTO(MockRule rule): base(rule)
+        {
+            Style = new StyleDTO(rule.DefaultStyle);
+
+        }
 
 
     }

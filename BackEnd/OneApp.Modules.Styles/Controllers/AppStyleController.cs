@@ -91,7 +91,7 @@ namespace OneApp.Modules.Styles.Controllers
                 fileData.ContentType = contentType;
                 httpPostedFile.InputStream.Read(fileData.Data, 0, length);
 
-                rule.Style.SetProperty(cssProperty, await _repo.InsertFileData(fileData));
+                rule.Style.SetFilePropertyWithId(cssProperty, await _repo.InsertFileData(fileData));
             }
 
             //remove old files 
@@ -114,7 +114,7 @@ namespace OneApp.Modules.Styles.Controllers
         }
 
         [HttpGet]
-        public async Task<BaseHttpActionResult> GetCSSImage(string id)
+        public async Task<BaseHttpActionResult> GetCSSImage(int id)
         {
             var file = await _repo.GetFileData(id);
 

@@ -4,111 +4,70 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OneApp.Modules.Styles.Models;
+using OneApp.Modules.Styles.Repositories.Mock.Models;
 
 namespace OneApp.Modules.Styles.Repositories.Mock
 {
     public class StylesMockRepository : IStylesRepository
     {
-        static List<RuleDTO> _rules = new List<RuleDTO>();
-        static List<FileDataDTO> _filesData = new List<FileDataDTO>();
-        static StylesMockRepository()
-        {
-            _rules.Add(new RuleDTO
-            {
-                Id = 1,
-                Selector = ".page-top",
-                Name = "Header",
-                Category = "Header",
-                Style = new StyleDTO()
-                {
-                    BackgroundColor = ""
 
-                }
-
-            });
-            _rules.Add(new RuleDTO
-            {
-                Id = 2,
-                Selector = ".al-sidebar",
-                Name = "Side Bar Background",
-                Category = "Side Bar",
-                Style = new StyleDTO()
-                {
-                    BackgroundColor = "",
-
-                }
-
-            });
-            _rules.Add(new RuleDTO
-            {
-                Id = 3,
-                Selector = "a.al-sidebar-list-link",
-                Name = "Side Bar Text Color",
-                Category = "Side Bar",
-                Style = new StyleDTO()
-                {
-                    Color = ""
-
-                }
-
-            });
-
-            _rules.Add(new RuleDTO
-            {
-                Id = 4,
-                Selector = "main::before",
-                Name = "Main Content Background image",
-                Category = "Main Content",
-                Style = new StyleDTO()
-                {
-                    BackgroundImage = ""
-
-                }
-            }
-
-            );
-        }
 
         public async Task<RuleDTO> GetRule(int id)
         {
-            return _rules.FirstOrDefault(style => style.Id == id);
+            var rule = StylesMockContext.Rules.FirstOrDefault(r => r.Id == id);
+            return new RuleDTO(rule);
+
         }
 
         public async Task<List<RuleDTO>> GetAllStyles()
         {
-            return _rules;
+            return StylesMockContext.Rules.Select(r => new RuleDTO(r)).ToList();
         }
 
         public async Task<RuleDTO> UpdateRuleStyle(RuleDTO newRule)
         {
-            var oldRule = _rules.Find(r => r.Id == newRule.Id);
+            var oldRule = StylesMockContext.Rules.Find(r => r.Id == newRule.Id);
             if (oldRule == null)
             {
                 throw new Exception("No Css rule with Id=" + newRule.Id);
             }
             //we may use reflection too loop through all properties 
-            oldRule.Style.Color = newRule.Style.Color;
-            oldRule.Style.BackgroundColor = newRule.Style.BackgroundColor;
-            oldRule.Style.BackgroundImage = newRule.Style.BackgroundImage;
+            if (newRule.Style.Color != null)
+            {
+                oldRule.DefaultStyle.Color = newRule.Style.Color;
+            }
+            if (newRule.Style.BackgroundColor!=null) {
+                oldRule.DefaultStyle.BackgroundColor = newRule.Style.BackgroundColor;
+            }
+            if (newRule.Style.BackgroundImage.HasValue)
+            {
+                oldRule.DefaultStyle.BackgroundImage = newRule.Style.BackgroundImage;
+            }
 
-
-            return oldRule;
+            return new RuleDTO(oldRule);
         }
 
-        public async Task<string> InsertFileData(FileDataDTO fileData)
+        public async Task<int> InsertFileData(FileDataDTO fileData)
         {
-            _filesData.Add(fileData);
-            fileData.Id = DateTime.Now.Ticks.ToString();
-            return fileData.Id;
+            var mockFile = new MockFile
+            {
+                Data = fileData.Data,
+                ContentType = fileData.ContentType,
+                Length = fileData.Length,
+                Name = fileData.Name
+            };
+            StylesMockContext.Files.Add(mockFile);
+            return mockFile.Id;
         }
 
-        public async Task<FileDataDTO> GetFileData(string id)
+        public async Task<FileDataDTO> GetFileData(int id)
         {
-            return _filesData.FirstOrDefault(fd => fd.Id == id);
+            var saveFile = StylesMockContext.Files.FirstOrDefault(fd => fd.Id == id);
+            return saveFile == null ? null : new FileDataDTO(saveFile);
         }
-        public async Task RemoveFileData(string id)
-        {
-            _filesData.Remove(_filesData.Find(it => it.Id == id));
+        public async Task RemoveFileData(int id)
+        { 
+             StylesMockContext.Files.Remove(StylesMockContext.Files.FirstOrDefault(fd => fd.Id == id));
         }
     }
 }

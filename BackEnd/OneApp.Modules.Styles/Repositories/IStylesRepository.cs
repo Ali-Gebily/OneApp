@@ -15,8 +15,8 @@ namespace OneApp.Modules.Styles.Repositories
         //we will return RuleDTO again to make sure that data is saved successfully
         Task<RuleDTO> UpdateRuleStyle(RuleDTO rule);
 
-        Task<string> InsertFileData(FileDataDTO fileData);
-        Task<FileDataDTO> GetFileData(string id);
-        Task RemoveFileData(string id);
+        Task<int> InsertFileData(FileDataDTO fileData);
+        Task<FileDataDTO> GetFileData(int id);
+        Task RemoveFileData(int id);
     }
 }

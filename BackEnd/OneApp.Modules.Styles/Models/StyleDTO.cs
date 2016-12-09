@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using Newtonsoft.Json;
+using OneApp.Modules.Styles.Repositories.Mock.Models;
 
 namespace OneApp.Modules.Styles.Models
 {
@@ -13,17 +14,42 @@ namespace OneApp.Modules.Styles.Models
         const string _backgroundColor = "background_color";
         const string _backgroundImage = "background_image";
 
+        [JsonProperty("id")]
+        public int Id { get; set; }
 
-
+        /// <summary>
+        /// (null)  means that it's not included in style
+        /// ("") included but not set 
+        /// any other string means it's included and has value,
+        /// and the same rule for other properties related to color
+        /// </summary>
         [JsonProperty(_color)]
         public string Color { get; set; }
 
         [JsonProperty(_backgroundColor)]
         public string BackgroundColor { get; set; }
 
+        /// <summary>
+        /// (null)  means that it's not included in style
+        /// (0) included but not set 
+        /// >0 means it's included and has value
+        /// </summary>
         [JsonProperty(_backgroundImage)]
-        public string BackgroundImage { get; set; }
+        public int? BackgroundImage { get; set; }
 
+
+        public StyleDTO()
+        {
+
+        }
+        public StyleDTO(MockStyle style)
+        {
+
+            this.BackgroundColor = style.BackgroundColor;
+            this.BackgroundImage = style.BackgroundImage;
+            this.Color = style.Color;
+            this.Id = style.Id;
+        }
 
         public string GetFormattedStyle(string baseUrl, int ruleId)
         {
@@ -37,7 +63,7 @@ namespace OneApp.Modules.Styles.Models
                 sb.Append("background-color: " + BackgroundColor + " !important; \n");
             }
 
-            if (!string.IsNullOrEmpty(BackgroundImage))
+            if (BackgroundImage > 0)
             {
                 sb.Append("background-image: url('" + baseUrl + "/" + BackgroundImage + "') !important; \n");
 
@@ -46,16 +72,11 @@ namespace OneApp.Modules.Styles.Models
             return sb.ToString();
         }
 
-        public void SetProperty(string propertyName, string value)
+        public void SetFilePropertyWithId(string propertyName, int value)
         {
             switch (propertyName)
             {
-                case _color:
-                    this.Color = value;
-                    break;
-                case _backgroundColor:
-                    this.BackgroundColor = value;
-                    break;
+
                 case _backgroundImage:
                     this.BackgroundImage = value;
                     break;
@@ -63,12 +84,12 @@ namespace OneApp.Modules.Styles.Models
                     throw new NotImplementedException("can not set property with key=" + propertyName);
             }
         }
-        public List<string> GetFilePropertiesValues()
+        public List<int> GetFilePropertiesValues()
         {
-            var values = new List<string>();
-            if (!string.IsNullOrEmpty(BackgroundImage))
+            var values = new List<int>();
+            if (BackgroundImage > 0)
             {
-                values.Add(BackgroundImage);
+                values.Add(BackgroundImage.Value);
             }
             return values;
         }

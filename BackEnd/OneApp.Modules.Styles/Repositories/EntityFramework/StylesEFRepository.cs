@@ -20,7 +20,7 @@ namespace OneApp.Modules.Styles.WebServices.Repositories.EntityFramework
             throw new NotImplementedException();
         }
 
-        public Task<FileDataDTO> GetFileData(string id)
+        public Task<FileDataDTO> GetFileData(int id)
         {
             throw new NotImplementedException();
         }
@@ -30,12 +30,12 @@ namespace OneApp.Modules.Styles.WebServices.Repositories.EntityFramework
             throw new NotImplementedException();
         }
 
-        public Task<string> InsertFileData(FileDataDTO fileData)
+        public Task<int> InsertFileData(FileDataDTO fileData)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveFileData(string id)
+        public Task RemoveFileData(int id)
         {
             throw new NotImplementedException();
         }

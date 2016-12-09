@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
+using OneApp.Modules.Styles.Repositories.Mock.Models;
 
 namespace OneApp.Modules.Styles.Models
 {
@@ -36,6 +37,19 @@ namespace OneApp.Modules.Styles.Models
                 Description = this.Description,
             };
          }
+
+        public RuleSummaryDTO()
+        {
+
+        }
+        public RuleSummaryDTO(MockRule rule)
+        {
+            this.Id = rule.Id;
+            this.Selector = rule.Selector;
+            this.Name = rule.Name;
+            this.Description = rule.Description;
+            this.Category = rule.Category;
+        }
 
     }
 }

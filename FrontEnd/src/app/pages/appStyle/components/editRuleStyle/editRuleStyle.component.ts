@@ -137,7 +137,7 @@ export class EditRuleStyleComponent implements OnInit {
       if (this.rule.style.files) {
         delete this.rule.style.files[key];
       }
-      this.rule.style[key] = "";
+      this.rule.style[key] = 0;
     }
   }
   clearColorValue(key: string) {
