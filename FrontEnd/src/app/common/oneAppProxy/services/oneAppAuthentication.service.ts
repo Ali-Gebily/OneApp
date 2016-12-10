@@ -39,21 +39,16 @@ export class OneAppAuthenticationService {
     }
 
   }
-  public loadData(): void {
+  public loadData(): boolean {
     var authenticationDataStr = localStorage.getItem(this.storageKey);//returns string
     if (authenticationDataStr != null) {
       var authenticationData: AuthenticationData = JSON.parse(authenticationDataStr);//parse string to object
-
-      this._authentication.isAuth = authenticationData.isAuth;
-      this._authentication.username = authenticationData.username;
-      this._authentication.access_token = authenticationData.access_token;
-      this._authentication.token_type = authenticationData.token_type;
-      this._authentication.expires_in = authenticationData.expires_in;
+      this.setAuthentication(authenticationData);
+      return true;
     }
+    return false
   }
-private LoadStyle(){
-  
-}
+ 
   public getAuthenticationData(): AuthenticationData {
     return this._authentication
   };

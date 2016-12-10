@@ -21,6 +21,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
                 Selector = ".page-top",
                 Name = "Header",
                 Category = "Header",
+                Scope = Modules.Styles.Models.RuleEntityScope.All,
                 DefaultStyle = new MockStyle()
                 {
                     BackgroundColor = ""
@@ -31,6 +32,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
             StylesMockContext.Rules.Add(new MockRule
             {
                 Selector = ".al-sidebar",
+                Scope = Modules.Styles.Models.RuleEntityScope.User,
                 Name = "Side Bar Background",
                 Category = "Side Bar",
                 DefaultStyle = new MockStyle()
@@ -43,6 +45,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
             StylesMockContext.Rules.Add(new MockRule
             {
                 Selector = "a.al-sidebar-list-link",
+                Scope = Modules.Styles.Models.RuleEntityScope.User,
                 Name = "Side Bar Text Color",
                 Category = "Side Bar",
                 DefaultStyle = new MockStyle()
@@ -56,6 +59,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
             StylesMockContext.Rules.Add(new MockRule
             {
                 Selector = "main::before",
+                Scope = Modules.Styles.Models.RuleEntityScope.All,
                 Name = "Main Content Background image",
                 Category = "Main Content",
                 DefaultStyle = new MockStyle()
@@ -67,8 +71,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
 
             );
         }
-
-
+         
 
     }
 }

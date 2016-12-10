@@ -26,6 +26,9 @@ namespace OneApp.Modules.Styles.Models
         [JsonProperty("category")]
         public string Category { get; set; }
 
+        [JsonProperty("scope")]
+        public RuleEntityScope Scope { get; internal set; }
+
         public RuleSummaryDTO CopyRuleSummaryDTO()
         {
             return new RuleSummaryDTO
@@ -38,18 +41,7 @@ namespace OneApp.Modules.Styles.Models
             };
          }
 
-        public RuleSummaryDTO()
-        {
-
-        }
-        public RuleSummaryDTO(MockRule rule)
-        {
-            this.Id = rule.Id;
-            this.Selector = rule.Selector;
-            this.Name = rule.Name;
-            this.Description = rule.Description;
-            this.Category = rule.Category;
-        }
+      
 
     }
 }

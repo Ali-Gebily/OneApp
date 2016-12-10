@@ -84,8 +84,10 @@
     <Compile Include="Controllers\AppStyleController.cs" />
     <Compile Include="Injectors\StylesInjector.cs" />
     <Compile Include="Models\FileDataDTO.cs" />
+    <Compile Include="Models\IRuleMapper.cs" />
+    <Compile Include="Models\IStyleMapper.cs" />
     <Compile Include="Models\RuleDTO.cs" />
-    <Compile Include="Models\RuleScope.cs" />
+    <Compile Include="Models\RuleEntityScope.cs" />
     <Compile Include="Models\RuleSummaryDTO.cs" />
     <Compile Include="Models\StyleCustomizationDTO.cs" />
     <Compile Include="Models\StyleDTO.cs" />
@@ -118,6 +120,17 @@
       <Project>{add683e1-0a8a-4665-89f4-c604d037a0c4}</Project>
       <Name>OneApp.Common.WebServices</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -9,42 +9,29 @@ using OneApp.Modules.Styles.Repositories.Mock.Models;
 namespace OneApp.Modules.Styles.Repositories.Mock
 {
     public class StylesMockRepository : IStylesRepository
-    {
-
-
-        public async Task<RuleDTO> GetRule(int id)
+    { 
+        public async Task<RuleDTO> GetRule(int id, string entityId)
         {
             var rule = StylesMockContext.Rules.FirstOrDefault(r => r.Id == id);
-            return new RuleDTO(rule);
+            return rule.GetRuleDTO(entityId);
 
         }
 
-        public async Task<List<RuleDTO>> GetAllStyles()
+        public async Task<List<RuleDTO>> GetStyles(string entityId)
         {
-            return StylesMockContext.Rules.Select(r => new RuleDTO(r)).ToList();
+            return StylesMockContext.Rules.Select(r => r.GetRuleDTO(entityId)).ToList();
         }
 
-        public async Task<RuleDTO> UpdateRuleStyle(RuleDTO newRule)
+        public async Task<RuleDTO> UpdateRuleStyle(RuleDTO newRule, string entityId)
         {
             var oldRule = StylesMockContext.Rules.Find(r => r.Id == newRule.Id);
             if (oldRule == null)
             {
                 throw new Exception("No Css rule with Id=" + newRule.Id);
             }
-            //we may use reflection too loop through all properties 
-            if (newRule.Style.Color != null)
-            {
-                oldRule.DefaultStyle.Color = newRule.Style.Color;
-            }
-            if (newRule.Style.BackgroundColor!=null) {
-                oldRule.DefaultStyle.BackgroundColor = newRule.Style.BackgroundColor;
-            }
-            if (newRule.Style.BackgroundImage.HasValue)
-            {
-                oldRule.DefaultStyle.BackgroundImage = newRule.Style.BackgroundImage;
-            }
-
-            return new RuleDTO(oldRule);
+            oldRule.SetRuleStyle(newRule.Style, entityId);
+          
+            return oldRule.GetRuleDTO(entityId);
         }
 
         public async Task<int> InsertFileData(FileDataDTO fileData)
@@ -66,8 +53,8 @@ namespace OneApp.Modules.Styles.Repositories.Mock
             return saveFile == null ? null : new FileDataDTO(saveFile);
         }
         public async Task RemoveFileData(int id)
-        { 
-             StylesMockContext.Files.Remove(StylesMockContext.Files.FirstOrDefault(fd => fd.Id == id));
+        {
+            StylesMockContext.Files.Remove(StylesMockContext.Files.FirstOrDefault(fd => fd.Id == id));
         }
     }
 }

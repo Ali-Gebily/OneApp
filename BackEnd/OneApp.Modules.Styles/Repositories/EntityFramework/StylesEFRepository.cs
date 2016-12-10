@@ -10,22 +10,19 @@ namespace OneApp.Modules.Styles.WebServices.Repositories.EntityFramework
 {
     public class StylesEFRepository : IStylesRepository
     {
-        public System.Threading.Tasks.Task<RuleDTO> FindRule(string searchPattern)
+         
+
+        public System.Threading.Tasks.Task<List<RuleDTO>> GetStyles( string entityId)
         {
             throw new NotImplementedException();
         }
 
-        public System.Threading.Tasks.Task<List<RuleDTO>> GetAllStyles()
+        public Task<FileDataDTO> GetFileData(int id )
         {
             throw new NotImplementedException();
         }
 
-        public Task<FileDataDTO> GetFileData(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public System.Threading.Tasks.Task<RuleDTO> GetRule(int id)
+        public System.Threading.Tasks.Task<RuleDTO> GetRule(int id, string entityId)
         {
             throw new NotImplementedException();
         }
@@ -40,7 +37,7 @@ namespace OneApp.Modules.Styles.WebServices.Repositories.EntityFramework
             throw new NotImplementedException();
         }
 
-        public Task<RuleDTO> UpdateRuleStyle(RuleDTO rule)
+        public Task<RuleDTO> UpdateRuleStyle(RuleDTO rule, string entityId)
         {
             throw new NotImplementedException();
         }

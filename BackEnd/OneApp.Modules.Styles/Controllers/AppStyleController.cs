@@ -32,9 +32,10 @@ namespace OneApp.Modules.Styles.Controllers
         /// <param name="base_url"></param>
         /// <returns></returns>
         [HttpGet]
+        [Authorize]
         public async Task<BaseHttpActionResult> GetFormattedAppStyle(string base_url)
         {
-            var styles = await _repo.GetAllStyles();
+            var styles = await _repo.GetStyles(UserId);
             StringBuilder sb = new StringBuilder();
             foreach (var item in styles)
             {
@@ -47,7 +48,7 @@ namespace OneApp.Modules.Styles.Controllers
         [Authorize]
         public async Task<BaseHttpActionResult> GetRulesSummary()
         {
-            var styles = await _repo.GetAllStyles();
+            var styles = await _repo.GetStyles(UserId);
             var stylesSummary = new List<RuleSummaryDTO>();
             foreach (var item in styles)
             {
@@ -60,7 +61,7 @@ namespace OneApp.Modules.Styles.Controllers
         [Authorize]
         public async Task<BaseHttpActionResult> GetRule(int id)
         {
-            return new SuccessHttpActionResult(await _repo.GetRule(id));
+            return new SuccessHttpActionResult(await _repo.GetRule(id, UserId));
         }
         [HttpPost]
         [Authorize]
@@ -95,7 +96,7 @@ namespace OneApp.Modules.Styles.Controllers
             }
 
             //remove old files 
-            var oldRule = await _repo.GetRule(rule.Id);
+            var oldRule = await _repo.GetRule(rule.Id, UserId);
             var clientFilePropertiesValues = rule.Style.GetFilePropertiesValues();
             var oldFilePropertiesValues = oldRule.Style.GetFilePropertiesValues();
 
@@ -108,7 +109,7 @@ namespace OneApp.Modules.Styles.Controllers
                 }
 
             }
-            var updateRule = await _repo.UpdateRuleStyle(rule);
+            var updateRule = await _repo.UpdateRuleStyle(rule,UserId);
 
             return new SuccessHttpActionResult(updateRule.Format(baseUrl));
         }

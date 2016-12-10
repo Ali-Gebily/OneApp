@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppNavigationService,OneAppUIService }  
-from '../../../common/oneAppProxy/services';
+import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppNavigationService, OneAppUIService }
+    from '../../../common/oneAppProxy/services';
 
- import { SendEmailVerificationCodeModel } from '../models/sendEmailVerificationCode.model';
+import { SendEmailVerificationCodeModel } from '../models/sendEmailVerificationCode.model';
 import { UserModel } from '../models/user.model';
 import { LoginInfoModel } from '../models/loginInfo.model';
 
@@ -14,7 +14,9 @@ import { ChangePasswordModel } from '../models/changePassword.model';
 export class AccountsService {
     constructor(private oneAppHttpService: OneAppHttpService,
         private oneAppAuthenticationService: OneAppAuthenticationService,
-        private oneAppNavigationService: OneAppNavigationService) {
+        private oneAppNavigationService: OneAppNavigationService,
+        private oneAppConfigurationService: OneAppConfigurationService,
+        private oneAppUIService: OneAppUIService) {
     }
 
     public sendEmailVerificationCode(sendEmailVerificationCodeModel: SendEmailVerificationCodeModel): Promise<any> {
@@ -46,7 +48,7 @@ export class AccountsService {
                         token_type: response.token_type,
                         expires_in: response.expires_in
                     })
-
+                accountService.oneAppUIService.loadStyle(accountService.oneAppHttpService, accountService.oneAppConfigurationService);
                 accountService.oneAppNavigationService.NavigateToHome();
                 Promise.resolve();
             });

@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ColorPickerService } from 'angular2-color-picker';
 
+import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppNavigationService, OneAppUIService }
+  from '../../../../common/oneAppProxy/services';
+
 import { RuleModel, CSSValueType } from '../../models'
 import { AppStyleService } from '../../services/appStyle.service'
 
@@ -20,10 +23,12 @@ export class EditRuleStyleComponent implements OnInit {
   CSSValueType: any = CSSValueType;
   EditRuleStyleComponent: any = EditRuleStyleComponent;
   Date: any = Date;
+
   constructor(
     private appStyleService: AppStyleService,
     private route: ActivatedRoute,
-    private cpService: ColorPickerService) {
+    private cpService: ColorPickerService,
+    private oneAppUIService: OneAppUIService) {
   }
   //uploader
   public uploaderOptions: any = {
@@ -74,7 +79,7 @@ export class EditRuleStyleComponent implements OnInit {
     }
 
   }
-  private removeAttributeExtension() {
+  private removeAttributeExtensions() {
     for (var key in this.rule.style) {
       if (this.getCSSValueType(key) == CSSValueType.Color
         && this.rule.style[key] == EditRuleStyleComponent.DefaultColor) {
@@ -92,32 +97,12 @@ export class EditRuleStyleComponent implements OnInit {
     return CSSValueType.NotSet;
   }
   save(): void {
-    this.removeAttributeExtension();
+    this.removeAttributeExtensions();
+
     this.appStyleService.updateRuleStyle(this.rule)
       .then(formattedRule => {
-        var oneAppStyleSheet = document.styleSheets["oneAppStyle"];
-        if (oneAppStyleSheet == null) {
-          var style = document.createElement('style');
-          style.type = 'text/css';
-          style.id = "oneAppStyleRule_" + this.rule.id;
-          style.innerHTML = formattedRule;
-          document.head.appendChild(style);
-        } else {
-          this.extendAttribute(this.rule);
-          var oneAppStyleSheet = document.styleSheets["oneAppStyle"];
-          var selector = this.rule.selector;
-          for (var i = 0, len = oneAppStyleSheet.cssRules.length; i < len; i++) {
-            var cssRule = oneAppStyleSheet.cssRules[i];
-            if (cssRule.selectorText == selector) {
-              oneAppStyleSheet.deleteRule(i);
-              console.log("deleted rule: " + cssRule.selectorText);
-              console.log(cssRule);
-              len = oneAppStyleSheet.cssRules.length;
-            }
-          }
-          oneAppStyleSheet.insertRule(formattedRule, oneAppStyleSheet.cssRules.length);
-          console.log(formattedRule);
-        }
+        this.oneAppUIService.updateStyleRule(this.rule.selector, formattedRule);
+        console.log(formattedRule);
         this.goBack();
       }).catch(error => { this.extendAttribute(this.rule); });
 

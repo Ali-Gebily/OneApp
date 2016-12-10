@@ -7,11 +7,12 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
 {
     public class MockStyleCustomization : MockBaseModel
     {
-        public string UserId { get; set; }
-
+     
         public long RuleId { get; set; }
 
         public int StyleId { get; set; }
+
+        public string EntityId { get; set; }
 
         public MockRule Rule { get { return StylesMockContext.Rules.FirstOrDefault(r => r.Id == this.RuleId); } }
 

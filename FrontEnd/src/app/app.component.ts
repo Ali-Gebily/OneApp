@@ -3,7 +3,7 @@ import { Component, ViewEncapsulation, ViewContainerRef } from '@angular/core';
 import { GlobalState } from './global.state';
 import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from './theme/services';
 import { layoutPaths } from './theme/theme.constants';
-import { BaThemeConfig } from './theme/theme.config'; 
+import { BaThemeConfig } from './theme/theme.config';
 import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppNavigationService, OneAppUIService } from './common/oneAppProxy/services';
 
 /*
@@ -34,7 +34,8 @@ export class App {
     private oneAppAuthenticationService: OneAppAuthenticationService,
     private oneAppNavigationService: OneAppNavigationService,
     private oneAppHttpService: OneAppHttpService,
-    private oneAppConfigurationService: OneAppConfigurationService
+    private oneAppConfigurationService: OneAppConfigurationService,
+    private oneAppUIService: OneAppUIService
   ) {
 
     this._loadImages();
@@ -42,17 +43,11 @@ export class App {
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });
-    oneAppAuthenticationService.loadData();
     oneAppNavigationService.configureNavigation();
-  BaThemePreloader.registerLoader(oneAppHttpService.get("/api/appStyle/getFormattedAppStyle?base_url="+
-  this.oneAppConfigurationService.getCSSImageDownloadUrl()).then(function name(result: any) {
-      console.log(result);
-      var style = document.createElement('style');
-      style.type = 'text/css';
-      style.innerHTML = result;
-      style.id="oneAppStyle";
-      document.head.appendChild(style);
-    }))
+    if (oneAppAuthenticationService.loadData()) { 
+      this.oneAppUIService.loadStyle(this.oneAppHttpService, this.oneAppConfigurationService);
+    }
+
   }
 
   public ngAfterViewInit(): void {

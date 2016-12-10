@@ -14,14 +14,12 @@ namespace OneApp.Modules.Styles.Models
         const string _backgroundColor = "background_color";
         const string _backgroundImage = "background_image";
 
-        [JsonProperty("id")]
-        public int Id { get; set; }
-
-        /// <summary>
+ 
+        /// <summary> for color value properties:
         /// (null)  means that it's not included in style
         /// ("") included but not set 
         /// any other string means it's included and has value,
-        /// and the same rule for other properties related to color
+        /// color value format should be like rgba(r,g,b,a)
         /// </summary>
         [JsonProperty(_color)]
         public string Color { get; set; }
@@ -37,20 +35,7 @@ namespace OneApp.Modules.Styles.Models
         [JsonProperty(_backgroundImage)]
         public int? BackgroundImage { get; set; }
 
-
-        public StyleDTO()
-        {
-
-        }
-        public StyleDTO(MockStyle style)
-        {
-
-            this.BackgroundColor = style.BackgroundColor;
-            this.BackgroundImage = style.BackgroundImage;
-            this.Color = style.Color;
-            this.Id = style.Id;
-        }
-
+ 
         public string GetFormattedStyle(string baseUrl, int ruleId)
         {
             var sb = new StringBuilder();

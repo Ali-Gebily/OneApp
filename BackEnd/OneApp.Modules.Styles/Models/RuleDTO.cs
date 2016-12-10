@@ -15,21 +15,13 @@ namespace OneApp.Modules.Styles.Models
         [JsonProperty("style")]
         public StyleDTO Style { get; set; } = new StyleDTO();
 
+        
         public string Format(string baseUrl)
         { 
             return new StringBuilder(Selector + " {\n").Append(Style.GetFormattedStyle(baseUrl,this.Id)).Append("}").ToString();
         }
 
-        public RuleDTO()
-        {
-
-        }
-        public RuleDTO(MockRule rule): base(rule)
-        {
-            Style = new StyleDTO(rule.DefaultStyle);
-
-        }
-
-
+       
+        
     }
 }
