@@ -4,8 +4,8 @@ import { GlobalState } from './global.state';
 import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from './theme/services';
 import { layoutPaths } from './theme/theme.constants';
 import { BaThemeConfig } from './theme/theme.config';
-import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppNavigationService, OneAppUIService } from './common/oneAppProxy/services';
-
+import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppUIService } from './common/oneAppProxy/services';
+import { RuleEntityScope } from './pages/styles/models'
 /*
  * App Component
  * Top Level Component
@@ -31,8 +31,7 @@ export class App {
     private _spinner: BaThemeSpinner,
     private _config: BaThemeConfig,
     private viewContainerRef: ViewContainerRef,
-    private oneAppAuthenticationService: OneAppAuthenticationService,
-    private oneAppNavigationService: OneAppNavigationService,
+    private oneAppAuthenticationService: OneAppAuthenticationService, 
     private oneAppHttpService: OneAppHttpService,
     private oneAppConfigurationService: OneAppConfigurationService,
     private oneAppUIService: OneAppUIService
@@ -43,9 +42,11 @@ export class App {
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });
-    oneAppNavigationService.configureNavigation();
-    if (oneAppAuthenticationService.loadData()) { 
-      this.oneAppUIService.loadStyle(this.oneAppHttpService, this.oneAppConfigurationService);
+    oneAppUIService.configureNavigation();
+    this.oneAppUIService.loadStyle(RuleEntityScope.Global,null, this.oneAppHttpService, this.oneAppConfigurationService);
+
+    if (oneAppAuthenticationService.loadData()) {
+      this.oneAppUIService.loadStyle(RuleEntityScope.User,null, this.oneAppHttpService, this.oneAppConfigurationService);
     }
 
   }

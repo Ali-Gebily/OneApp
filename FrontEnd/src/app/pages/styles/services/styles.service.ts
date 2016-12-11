@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppNavigationService, OneAppUIService }
+import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppUIService }
     from '../../../common/oneAppProxy/services';
-import { RuleModel } from '../models'
+import { RuleModel, RuleEntityScope } from '../models'
 
 @Injectable()
-export class AppStyleService {
+export class StylesService {
     constructor(private oneAppHttpService: OneAppHttpService,
         private oneAppConfigurationService: OneAppConfigurationService) {
     }
 
-    getRulesSummary(): Promise<any> {
-        return this.oneAppHttpService.get("/api/appStyle/getRulesSummary");
+    getRulesSummary(scope: RuleEntityScope): Promise<any> {
+        return this.oneAppHttpService.get("/api/styles/getRulesSummary?scope=" + scope);
     }
-    getRule(id: number): Promise<any> {
-        return this.oneAppHttpService.get("/api/appStyle/getRule/" + id);
+    getRuleDetails(id: number, entityId: string): Promise<any> {
+        return this.oneAppHttpService.get("/api/styles/getRuleDetails?id=" + id + "&entity_id=" + (entityId ? entityId : ""));
     }
-    updateRuleStyle(rule: RuleModel): Promise<any> {
+    updateRuleStyle(rule: RuleModel, entityId: string): Promise<any> {
 
         let formData: FormData = new FormData();
         for (var key in rule.style.files) {
@@ -24,8 +24,9 @@ export class AppStyleService {
 
         }
         formData.append("rule", JSON.stringify(rule));
+        formData.append("entity_id", entityId ? entityId : "");
         formData.append("base_url", this.oneAppConfigurationService.getCSSImageDownloadUrl());
-        return this.oneAppHttpService.postFormData("/api/appStyle/updateRuleStyle", formData);
+        return this.oneAppHttpService.postFormData("/api/styles/updateRuleStyle", formData);
 
     }
     getImage(id: string) {

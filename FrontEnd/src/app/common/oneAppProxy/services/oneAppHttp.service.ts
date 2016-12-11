@@ -4,10 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/toPromise';
 
-import { OneAppAuthenticationService } from './oneAppAuthentication.service';
-import { OneAppConfigurationService } from './oneAppConfiguration.service';
-import { OneAppNavigationService } from './oneAppNavigation.service';
-import { OneAppUIService } from './oneAppUI.service';
+import { OneAppAuthenticationService } from "./oneAppAuthentication.service";
+import { OneAppConfigurationService } from "./oneAppConfiguration.service";
+import { OneAppUIService } from "./oneAppUI.service"; 
 
 
 @Injectable()
@@ -15,8 +14,7 @@ export class OneAppHttpService {
     constructor(
         private http: Http,
         private oneAppAuthenticationService: OneAppAuthenticationService,
-        private oneAppConfigurationService: OneAppConfigurationService,
-        private oneAppNavigationService: OneAppNavigationService,
+        private oneAppConfigurationService: OneAppConfigurationService, 
         private oneAppUIService: OneAppUIService) {
 
         this.progress$ = new Observable<number>(observer => {
@@ -106,8 +104,8 @@ export class OneAppHttpService {
         service.oneAppUIService.hideLoading();
         console.log(response);
         if (response.status == 401) {//UnAuthorized
-            service.oneAppAuthenticationService.clearAuthenticationData();
-            service.oneAppNavigationService.NavigateToLogin();
+            service.oneAppAuthenticationService.setAuthentication(null);
+            service.oneAppUIService.NavigateToLogin();
         }
         else {
             var errorMessage = null;;

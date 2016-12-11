@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
-import { AppStyleService } from '../../services/appStyle.service'
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { StylesService } from '../../services/styles.service'
 import { LocalDataSource } from 'ng2-smart-table';
 
 
@@ -49,23 +49,28 @@ export class ListRulesComponent {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(protected service: AppStyleService,
-    private router: Router) {
-    this.service.getRulesSummary().then((data) => {
-      this.source.load(data);
+  constructor(protected stylesService: StylesService,
+    private router: Router,
+    private route: ActivatedRoute) {
+
+  }
+  ngOnInit(): void {
+    this.route.params.forEach((params: Params) => {
+      if (params['scope'] !== undefined) {
+        let id = +params['scope'];
+        this.stylesService.getRulesSummary(id)
+          .then(data => {
+            this.source.load(data);
+          });
+      } else {
+        throw new Error("You have to specify scope paramter")
+      }
     });
   }
 
-  onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
-    }
-  }
   onEdit($event): void {
-    console.log($event);
-    this.router.navigate(['/pages/appStyle/editRuleStyle', $event.data.id]);
+    //entityId should be handled later
+    this.router.navigate(['/pages/styles/editRuleStyle', $event.data.id, ""]);
     event.preventDefault();
   }
 

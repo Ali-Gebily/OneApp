@@ -1,4 +1,5 @@
-import {Component, ViewEncapsulation, Input, Output, EventEmitter} from '@angular/core';
+import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'ba-menu-item',
@@ -7,21 +8,27 @@ import {Component, ViewEncapsulation, Input, Output, EventEmitter} from '@angula
   template: require('./baMenuItem.html')
 })
 export class BaMenuItem {
+  /**
+   *
+   */
+  constructor(private router: Router) {
 
-  @Input() menuItem:any;
-  @Input() child:boolean = false;
+
+  }
+  @Input() menuItem: any;
+  @Input() child: boolean = false;
 
   @Output() itemHover = new EventEmitter<any>();
   @Output() toggleSubMenu = new EventEmitter<any>();
 
-  public onHoverItem($event):void {
+  public onHoverItem($event, item): void {
     this.itemHover.emit($event);
   }
 
-  public onToggleSubMenu($event, item):boolean {
+  public onToggleSubMenu($event, item): boolean {
     $event.item = item;
     this.toggleSubMenu.emit($event);
     return false;
   }
-   
+ 
 }

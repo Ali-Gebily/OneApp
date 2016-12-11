@@ -10,7 +10,7 @@ const routes: Routes = [
       { path: 'home', loadChildren: () => System.import('./general/home/home.module') },
         
       { path: 'accounts', loadChildren: () => System.import('./accounts/accounts.module') },
-      { path: 'appStyle', loadChildren: () => System.import('./appStyle/appStyle.module') }, 
+      { path: 'styles', loadChildren: () => System.import('./styles/styles.module') }, 
       { path: 'dashboard', loadChildren: () => System.import('./dashboard/dashboard.module') },
       { path: 'editors', loadChildren: () => System.import('./editors/editors.module') },
       //{ path: 'components', loadChildren: () => System.import('./components/components.module') }

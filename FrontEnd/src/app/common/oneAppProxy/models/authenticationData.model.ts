@@ -1,13 +1,13 @@
 export class AuthenticationData
 { 
-    isAuth: boolean;
+    isAuthenticated: boolean;
     username: string;
     access_token: string;
     token_type: string;
     expires_in: string;
 
 constructor(){
-this.isAuth=false;
+this.isAuthenticated=false;
 this.username=null;
 this.access_token=null;
 this.token_type=null;

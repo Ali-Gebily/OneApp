@@ -19,10 +19,10 @@ using OneApp.Modules.Styles.Repositories;
 namespace OneApp.Modules.Styles.Controllers
 {
 
-    public class AppStyleController : BaseApiController
+    public class StylesController : BaseApiController
     {
         IStylesRepository _repo;
-        public AppStyleController(IStylesRepository repository)
+        public StylesController(IStylesRepository repository)
         {
             _repo = repository;
         }
@@ -32,36 +32,54 @@ namespace OneApp.Modules.Styles.Controllers
         /// <param name="base_url"></param>
         /// <returns></returns>
         [HttpGet]
-        [Authorize]
-        public async Task<BaseHttpActionResult> GetFormattedAppStyle(string base_url)
+        public async Task<BaseHttpActionResult> GetFormattedStyles([FromUri]GetFormattedRuleVM model)
         {
-            var styles = await _repo.GetStyles(UserId);
+            if ((model.Scope != RuleEntityScope.Global && model.Scope != RuleEntityScope.User) &&
+                string.IsNullOrEmpty(model.entity_id))//is not a global neither a user scope
+            {
+                return ErrorHttpActionResult.GenerateBadRequest("You have to provide entityId if the scope is not global neither user");
+            }
+            if (model.Scope == RuleEntityScope.User)
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    model.entity_id = UserId;
+                }
+                else
+                {
+                    return new ErrorHttpActionResult(HttpStatusCode.Unauthorized, new ErrorResponse("You have to login to access user styles"));
+                }
+            }
+
+            var styles = await _repo.GetStyles(model.Scope, model.entity_id);
             StringBuilder sb = new StringBuilder();
             foreach (var item in styles)
             {
-                sb.Append(item.Format(base_url) + "\n");
+                sb.Append(item.Format(model.base_url) + "\n");
             }
             return new SuccessHttpActionResult(sb.ToString());
         }
 
+
         [HttpGet]
         [Authorize]
-        public async Task<BaseHttpActionResult> GetRulesSummary()
+        public async Task<BaseHttpActionResult> GetRulesSummary(RuleEntityScope scope)
         {
-            var styles = await _repo.GetStyles(UserId);
-            var stylesSummary = new List<RuleSummaryDTO>();
-            foreach (var item in styles)
-            {
-                stylesSummary.Add(item.CopyRuleSummaryDTO());
-            }
+            var stylesSummary = await _repo.GetRulesSummary(scope);
             return new SuccessHttpActionResult(stylesSummary);
         }
 
         [HttpGet]
         [Authorize]
-        public async Task<BaseHttpActionResult> GetRule(int id)
+        public async Task<BaseHttpActionResult> GetRuleDetails([FromUri] GetRuleVM model)
         {
-            return new SuccessHttpActionResult(await _repo.GetRule(id, UserId));
+            if (string.IsNullOrEmpty(model.entity_id))
+            {
+                //this line will cause an issue if the client asked for not global neither user scope rule, and he did not pass entityId
+                model.entity_id = UserId;
+
+            }
+            return new SuccessHttpActionResult(await _repo.GetRule(model.id,model.entity_id));
         }
         [HttpPost]
         [Authorize]
@@ -69,6 +87,11 @@ namespace OneApp.Modules.Styles.Controllers
         {
             var ruleJson = HttpContext.Current.Request.Form["rule"];
             var baseUrl = HttpContext.Current.Request.Form["base_url"];
+            var entityId = HttpContext.Current.Request.Form["entity_id"];
+            if(string.IsNullOrEmpty(entityId))
+            {
+                entityId = UserId;
+            }
             if (string.IsNullOrEmpty(ruleJson))
             {
                 return ErrorHttpActionResult.GenerateBadRequest("rule form data is required");
@@ -96,7 +119,7 @@ namespace OneApp.Modules.Styles.Controllers
             }
 
             //remove old files 
-            var oldRule = await _repo.GetRule(rule.Id, UserId);
+            var oldRule = await _repo.GetRule(rule.Id,entityId);
             var clientFilePropertiesValues = rule.Style.GetFilePropertiesValues();
             var oldFilePropertiesValues = oldRule.Style.GetFilePropertiesValues();
 
@@ -106,10 +129,9 @@ namespace OneApp.Modules.Styles.Controllers
                 if (!clientFilePropertiesValues.Contains(oldValue))//the file is delete or replaced with another one, then delete old one
                 {
                     await _repo.RemoveFileData(oldValue);
-                }
-
+                } 
             }
-            var updateRule = await _repo.UpdateRuleStyle(rule,UserId);
+            var updateRule = await _repo.UpdateRuleStyle(rule, entityId);
 
             return new SuccessHttpActionResult(updateRule.Format(baseUrl));
         }

@@ -12,7 +12,6 @@ namespace OneApp.Common.WebServices.Models
             base(statusCode, errorResponse)
         {
         }
-
         public static ErrorHttpActionResult GenerateBadRequest(string error)
         {
             return new ErrorHttpActionResult(HttpStatusCode.BadRequest, new ErrorResponse(error));

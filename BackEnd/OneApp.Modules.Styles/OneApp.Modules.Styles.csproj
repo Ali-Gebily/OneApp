@@ -81,15 +81,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AppStyleController.cs" />
+    <Compile Include="Controllers\StylesController.cs" />
     <Compile Include="Injectors\StylesInjector.cs" />
     <Compile Include="Models\FileDataDTO.cs" />
+    <Compile Include="Models\ControllApiRuleVM.cs" />
     <Compile Include="Models\IRuleMapper.cs" />
     <Compile Include="Models\IStyleMapper.cs" />
     <Compile Include="Models\RuleDTO.cs" />
     <Compile Include="Models\RuleEntityScope.cs" />
     <Compile Include="Models\RuleSummaryDTO.cs" />
-    <Compile Include="Models\StyleCustomizationDTO.cs" />
     <Compile Include="Models\StyleDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EntityFramework\StylesEFRepository.cs" />

@@ -1,14 +1,14 @@
 <div class="page-top clearfix" baScrollPosition maxHeight="50" (scrollChange)="scrolledChanged($event)" [ngClass]="{scrolled: isScrolled}">
   <a routerLink="/pages/home" class="al-logo clearfix"><span>One</span>App</a>
-  <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon" *ngIf="authentication.isAuth"></a>
+  <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon" *ngIf="authentication.isAuthenticated"></a>
 
 
-  <div class="search" *ngIf="authentication.isAuth">
+  <div class="search" *ngIf="authentication.isAuthenticated">
     <i class="ion-ios-search-strong" ng-click="startSearch()"></i>
     <input id="searchInput" type="text" placeholder="Search for...">
   </div>
 
-  <div class="user-profile clearfix" *ngIf="authentication.isAuth">
+  <div class="user-profile clearfix" *ngIf="authentication.isAuthenticated">
     <div class="dropdown al-user-profile">
       <a class="profile-toggle-link dropdown-toggle" id="user-profile-dd" data-toggle="dropdown" aria-expanded="false">
         <img src="{{ ( 'Alig' | baProfilePicture ) }}">
@@ -27,8 +27,8 @@
   </div>
 
   <div style="float:right">
-    <a routerLink="/pages/accounts/register" class="al-logo clearfix" style="padding-left:10px; font-size:14px;" *ngIf="!authentication.isAuth">Sign up</a>
-    <a routerLink="/pages/accounts/login" class="al-logo clearfix" style="padding-left:10px; font-size:14px;" *ngIf="!authentication.isAuth">Sign in</a>
+    <a routerLink="/pages/accounts/register" class="al-logo clearfix" style="padding-left:10px; font-size:14px;" *ngIf="!authentication.isAuthenticated">Sign up</a>
+    <a routerLink="/pages/accounts/login" class="al-logo clearfix" style="padding-left:10px; font-size:14px;" *ngIf="!authentication.isAuthenticated">Sign in</a>
   </div>
 
 </div>

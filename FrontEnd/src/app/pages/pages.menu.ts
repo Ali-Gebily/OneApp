@@ -1,20 +1,41 @@
+import { RuleEntityScope } from './styles/models'
 export const PAGES_MENU = [
   {
     path: 'pages',
     children: [
-       {
-        path: 'appStyle',
+      {
+        path: 'styles',
         data: {
           menu: {
-            title: 'App Styles',
+            title: 'Styles',
             icon: 'ion-star',
             selected: false,
             expanded: false,
             order: 0
           }
-        }
+        },
+
+        children: [
+          {
+            path: ['/pages/styles/listRules', RuleEntityScope.Global],
+            data: {
+              menu: {
+                title: 'Global Styles',
+              }
+            }
+          },
+          {
+             path: ['/pages/styles/listRules', RuleEntityScope.User ],
+            data: {
+              menu: {
+                title: 'My Styles',
+              }
+            }
+          }
+        ]
+
       },
-      
+
       {
         path: 'dashboard',
         data: {
@@ -27,7 +48,7 @@ export const PAGES_MENU = [
           }
         }
       },
-      
+
       {
         path: 'editors',
         data: {

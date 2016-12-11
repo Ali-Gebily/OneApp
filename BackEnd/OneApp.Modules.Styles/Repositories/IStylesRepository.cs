@@ -10,8 +10,10 @@ namespace OneApp.Modules.Styles.Repositories
 {
     public interface IStylesRepository
     {
-        Task<List<RuleDTO>> GetStyles(string entityId);
-        Task<RuleDTO> GetRule(int id, string entityId);
+        Task<List<RuleDTO>> GetStyles(RuleEntityScope scope, string entityId);
+
+        Task<List<RuleSummaryDTO>> GetRulesSummary(RuleEntityScope scope);
+        Task<RuleDTO> GetRule(int id,  string entityId);
         //we will return RuleDTO again to make sure that data is saved successfully
         Task<RuleDTO> UpdateRuleStyle(RuleDTO rule, string entityId);
 

@@ -39,16 +39,32 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
             }
         }
 
-
-        public RuleDTO GetRuleDTO(string entityId)
+        public RuleSummaryDTO GetRuleSummaryDTO()
         {
-            var dto = new RuleDTO();
+            var summaryDto = new RuleSummaryDTO();
+            setRuleSummaryProperties(summaryDto);
+            return summaryDto;
+        }
+        void setRuleSummaryProperties(RuleSummaryDTO dto)
+        {
             dto.Id = this.Id;
             dto.Selector = this.Selector;
             dto.Scope = this.Scope;
             dto.Name = this.Name;
             dto.Description = this.Description;
             dto.Category = this.Category;
+        }
+        public RuleDTO GetRuleDTO( string entityId)
+        { 
+
+            if (string.IsNullOrWhiteSpace(entityId) && this.Scope != RuleEntityScope.Global)
+            {
+                throw new Exception("entityId can't be empty for not global rules");
+
+            }
+            //we need to implement validator handlers so that we can entityId with respect to scope
+            var dto = new RuleDTO();
+            setRuleSummaryProperties(dto);
 
             var customStyle = StylesMockContext.StyleCustomizations.Where(sc => sc.RuleId == this.Id && sc.EntityId == entityId).FirstOrDefault();
             if (customStyle == null)
@@ -66,7 +82,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
         {
             switch (this.Scope)
             {
-                case RuleEntityScope.All:
+                case RuleEntityScope.Global:
                     this.DefaultStyle.SetStyleProperties(dto);
                     break;
                 default:
@@ -97,8 +113,10 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
                     break;
             }
 
-           
+
 
         }
+
+
     }
 }

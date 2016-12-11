@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ColorPickerService } from 'angular2-color-picker';
+import * as _ from 'lodash';
 
-import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppNavigationService, OneAppUIService }
+import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppUIService }
   from '../../../../common/oneAppProxy/services';
 
-import { RuleModel, CSSValueType } from '../../models'
-import { AppStyleService } from '../../services/appStyle.service'
+import { RuleModel, CSSValueType, StyleModel } from '../../models'
+import { StylesService } from '../../services/styles.service'
 
 
 
@@ -17,15 +18,12 @@ import { AppStyleService } from '../../services/appStyle.service'
 })
 export class EditRuleStyleComponent implements OnInit {
   @Input() rule: RuleModel;
-  @Output() close = new EventEmitter();
   static DefaultColor: string = "rgba(0,0,0,0)";
-  navigated = false; // true if navigated here
   CSSValueType: any = CSSValueType;
   EditRuleStyleComponent: any = EditRuleStyleComponent;
-  Date: any = Date;
 
   constructor(
-    private appStyleService: AppStyleService,
+    private stylesService: StylesService,
     private route: ActivatedRoute,
     private cpService: ColorPickerService,
     private oneAppUIService: OneAppUIService) {
@@ -37,19 +35,25 @@ export class EditRuleStyleComponent implements OnInit {
 
   };
   defaultPicture: string;
+  entityId: string = null;
   ngOnInit(): void {
     this.route.params.forEach((params: Params) => {
+       let id: number = null;
       if (params['id'] !== undefined) {
-        let id = +params['id'];
-        this.navigated = true;
-        this.appStyleService.getRule(id)
-          .then(rule => {
-            this.extendAttribute(rule);
-            this.rule = rule;
-          });
+         id = +params['id'];
+
       } else {
         throw new Error("You have to specify id of the rule")
       }
+      if (params['entityId'] != undefined && params['entityId'] !== "" ) {
+        this.entityId = params['entityId'];
+
+      }
+      this.stylesService.getRuleDetails(id, "")
+        .then(rule => {
+          this.extendAttribute(rule);
+          this.rule = rule;
+        });
     });
   }
   private clone(obj): any {
@@ -68,7 +72,7 @@ export class EditRuleStyleComponent implements OnInit {
  "" -> property is included in style but without default value
  */
   private extendAttribute(rule) {
-    rule.initial_style = this.clone(rule.style);
+    rule.initial_style =<StyleModel> _.cloneDeep(rule.style);
 
     for (var key in rule.style) {
       if (this.getCSSValueType(key) == CSSValueType.Color
@@ -99,9 +103,9 @@ export class EditRuleStyleComponent implements OnInit {
   save(): void {
     this.removeAttributeExtensions();
 
-    this.appStyleService.updateRuleStyle(this.rule)
+    this.stylesService.updateRuleStyle(this.rule, this.entityId)
       .then(formattedRule => {
-        this.oneAppUIService.updateStyleRule(this.rule.selector, formattedRule);
+        this.oneAppUIService.updateStyleRule(this.rule.scope, this.rule.selector, formattedRule);
         console.log(formattedRule);
         this.goBack();
       }).catch(error => { this.extendAttribute(this.rule); });
@@ -109,8 +113,7 @@ export class EditRuleStyleComponent implements OnInit {
   }
 
   goBack(savedRule: RuleModel = null): void {
-    this.close.emit(savedRule);
-    if (this.navigated) { window.history.back(); }
+    window.history.back();
   }
   filesSelected(key: string, files: File[]) {
     if (this.rule.style.files == undefined) {
@@ -132,7 +135,7 @@ export class EditRuleStyleComponent implements OnInit {
     this.rule.style[key] = this.rule.initial_style[key];
   }
   getImage(value: string) {
-    return this.appStyleService.getImage(value);
+    return this.stylesService.getImage(value);
   }
 }
 

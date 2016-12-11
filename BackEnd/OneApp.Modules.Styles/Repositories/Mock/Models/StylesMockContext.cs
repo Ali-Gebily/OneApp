@@ -21,7 +21,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
                 Selector = ".page-top",
                 Name = "Header",
                 Category = "Header",
-                Scope = Modules.Styles.Models.RuleEntityScope.All,
+                Scope = Modules.Styles.Models.RuleEntityScope.Global,
                 DefaultStyle = new MockStyle()
                 {
                     BackgroundColor = ""
@@ -29,6 +29,37 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
                 }
 
             });
+            StylesMockContext.Rules.Add(new MockRule
+            {
+                Selector = ".auth-block",
+                Name = "Authentication Background",
+                Category = "Authentication",
+                Description="Manage background for authentiaction screens like login and register",
+                Scope = Modules.Styles.Models.RuleEntityScope.Global,
+                DefaultStyle = new MockStyle()
+                {
+                    BackgroundColor = ""
+
+                }
+
+            });
+
+            StylesMockContext.Rules.Add(new MockRule
+            {
+                Selector = ".auth-block a",
+                Name = "Authentication Text",
+                Category = "Authentication",
+                Description = "Manage text color for authentiaction screens like login and register",
+                Scope = Modules.Styles.Models.RuleEntityScope.Global,
+                DefaultStyle = new MockStyle()
+                {
+                    Color = ""
+
+                }
+
+            });
+
+             
             StylesMockContext.Rules.Add(new MockRule
             {
                 Selector = ".al-sidebar",
@@ -59,17 +90,43 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
             StylesMockContext.Rules.Add(new MockRule
             {
                 Selector = "main::before",
-                Scope = Modules.Styles.Models.RuleEntityScope.All,
-                Name = "Main Content Background image",
+                Scope = Modules.Styles.Models.RuleEntityScope.User,
+                Name = "Main Content",
                 Category = "Main Content",
                 DefaultStyle = new MockStyle()
                 {
                     BackgroundImage = 0
 
                 }
-            }
+            } );
 
-            );
+            StylesMockContext.Rules.Add(new MockRule
+            {
+                Selector = ".pie-charts .pie-chart-item",
+                Scope = Modules.Styles.Models.RuleEntityScope.User,
+                Name = "Pie Chart Item",
+                Category = "Dashboard",
+                Description = "Manage text color for pie chart in dashboard screen",
+                DefaultStyle = new MockStyle()
+                {
+                    Color = ""
+
+                }
+            });
+            StylesMockContext.Rules.Add(new MockRule
+            {
+                Selector = ".channels-block",
+                Scope = Modules.Styles.Models.RuleEntityScope.User,
+                Name = "Channels",
+                Category = "Dashboard",
+                Description = "Manage text color for channels in dashboard screen",
+
+                DefaultStyle = new MockStyle()
+                {
+                    Color = ""
+
+                }
+            });
         }
          
 

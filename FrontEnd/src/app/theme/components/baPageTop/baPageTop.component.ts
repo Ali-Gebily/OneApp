@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 import { GlobalState } from '../../../global.state';
 
-import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppNavigationService,OneAppUIService }  
+import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService,OneAppUIService }  
 from '../../../common/oneAppProxy/services';
 import {BaPageTopService} from '../../services/baPageTop'
 
@@ -20,7 +20,7 @@ export class BaPageTop {
 
   constructor(private _state: GlobalState,
     private oneAppAuthenticationService: OneAppAuthenticationService,
-    private oneAppNavigationService: OneAppNavigationService,
+    private oneAppUIService: OneAppUIService,
     private baPageTopService: BaPageTopService
   ) {
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
@@ -44,7 +44,7 @@ export class BaPageTop {
   }
   public changePassword($event) {
     $event.preventDefault();
-    this.oneAppNavigationService.NavigateTo("/pages/accounts/changePassword");
+    this.oneAppUIService.NavigateTo("/pages/accounts/changePassword");
 
   }
 

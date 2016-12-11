@@ -4,29 +4,25 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
 import { Routes, RouterModule } from '@angular/router';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import {ColorPickerModule} from 'angular2-color-picker';
+import { ColorPickerModule } from 'angular2-color-picker';
 
-import { AppStyleService } from './services/appStyle.service';
+import { StylesService } from './services/styles.service';
 import { ListRulesComponent } from './components/listRules/listRules.component';
-import { EditRuleStyleComponent } from './components/editRuleStyle/editRuleStyle.component'; 
+import { EditRuleStyleComponent } from './components/editRuleStyle/editRuleStyle.component';
 
 
 
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: "listRules"
-  },
-  {
-    path: 'listRules',
+    path: 'listRules/:scope',
     component: ListRulesComponent
   }
   ,
   {
-    path: 'editRuleStyle/:id',
+    path: 'editRuleStyle/:id/:entityId',
     component: EditRuleStyleComponent
-  } 
+  }
 ];
 
 
@@ -38,14 +34,14 @@ const routes: Routes = [
     FormsModule,
     NgaModule,
     RouterModule.forChild(routes),
-     Ng2SmartTableModule,
-     ColorPickerModule
+    Ng2SmartTableModule,
+    ColorPickerModule
   ],
   declarations: [
-    ListRulesComponent,EditRuleStyleComponent
+    ListRulesComponent, EditRuleStyleComponent
   ],
   providers: [
-    AppStyleService
+    StylesService
   ]
 })
-export default class appStylesModule { }
+export default class stylessModule { }

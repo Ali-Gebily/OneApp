@@ -9,6 +9,6 @@ export class OneAppConfigurationService {
     public LoginUrl: string = '/pages/accounts/login';
     
      public getCSSImageDownloadUrl(): string {
-        return this.BackEndServicePath + "api/appStyle/getCSSImage"
+        return this.BackEndServicePath + "api/styles/getCSSImage"
     }
 }

@@ -8,6 +8,7 @@ namespace OneApp.Modules.Styles.Models
     public interface IRuleMapper
     {
         RuleDTO GetRuleDTO(string entityId);
+        RuleSummaryDTO GetRuleSummaryDTO();
         void SetRuleStyle(StyleDTO dto, string entityId);
 
     }

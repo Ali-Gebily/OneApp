@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 
-import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService, OneAppNavigationService,OneAppUIService }  
+import { OneAppAuthenticationService, OneAppConfigurationService, OneAppHttpService,OneAppUIService }  
 from '../../../common/oneAppProxy/services';
 
 
 @Injectable()
 export class BaPageTopService {
     /**
-     * 
+     *  
      */
     constructor(private oneAppAuthenticationService: OneAppAuthenticationService,
-        private oneAppNavigationService: OneAppNavigationService,
+        private oneAppUIService: OneAppUIService,
         private oneAppHttpService: OneAppHttpService) {
 
     }
@@ -19,8 +19,8 @@ export class BaPageTopService {
     public logout(): void {
         var service = this;
         this.oneAppHttpService.post('api/accounts/logout', null).then(function () {
-            service.oneAppAuthenticationService.clearAuthenticationData();
-            service.oneAppNavigationService.NavigateToHome();
+            service.oneAppAuthenticationService.setAuthentication(null);
+            service.oneAppUIService.NavigateToHome();
         });
 
     }

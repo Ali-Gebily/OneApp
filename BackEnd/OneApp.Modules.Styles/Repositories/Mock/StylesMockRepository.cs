@@ -9,19 +9,21 @@ using OneApp.Modules.Styles.Repositories.Mock.Models;
 namespace OneApp.Modules.Styles.Repositories.Mock
 {
     public class StylesMockRepository : IStylesRepository
-    { 
-        public async Task<RuleDTO> GetRule(int id, string entityId)
+    {
+       
+        public async Task<List<RuleDTO>> GetStyles(RuleEntityScope scope, string entityId)
         {
-            var rule = StylesMockContext.Rules.FirstOrDefault(r => r.Id == id);
-            return rule.GetRuleDTO(entityId);
-
-        }
-
-        public async Task<List<RuleDTO>> GetStyles(string entityId)
+            return StylesMockContext.Rules.Where(r => r.Scope == scope).Select(r => r.GetRuleDTO(entityId)).ToList();
+        } 
+        public async Task<List<RuleSummaryDTO>> GetRulesSummary(RuleEntityScope scope)
         {
-            return StylesMockContext.Rules.Select(r => r.GetRuleDTO(entityId)).ToList();
+            return StylesMockContext.Rules.Where(r => r.Scope == scope).Select(r => r.GetRuleSummaryDTO()).ToList();
         }
-
+        public async Task<RuleDTO> GetRule(int id,  string entityId)
+        {
+            return StylesMockContext.Rules.Where(r => r.Id == id).Select(r => r.GetRuleDTO(entityId)).FirstOrDefault();
+     
+        }
         public async Task<RuleDTO> UpdateRuleStyle(RuleDTO newRule, string entityId)
         {
             var oldRule = StylesMockContext.Rules.Find(r => r.Id == newRule.Id);
@@ -30,7 +32,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock
                 throw new Exception("No Css rule with Id=" + newRule.Id);
             }
             oldRule.SetRuleStyle(newRule.Style, entityId);
-          
+
             return oldRule.GetRuleDTO(entityId);
         }
 
@@ -56,5 +58,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock
         {
             StylesMockContext.Files.Remove(StylesMockContext.Files.FirstOrDefault(fd => fd.Id == id));
         }
+
+
     }
 }

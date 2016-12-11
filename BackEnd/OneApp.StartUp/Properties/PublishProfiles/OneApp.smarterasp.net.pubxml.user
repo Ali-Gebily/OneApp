@@ -11,7 +11,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AutoMapper.dll">
-      <publishTime>08/12/2016 13:21:44</publishTime>
+      <publishTime>12/08/2016 13:21:44</publishTime>
     </File>
     <File Include="bin/Castle.Core.dll">
       <publishTime>10/25/2016 14:09:17</publishTime>
@@ -68,7 +68,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/13/2016 17:20:14</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>08/03/2014 21:33:56</publishTime>
+      <publishTime>03/08/2014 21:33:56</publishTime>
     </File>
     <File Include="bin/Ninject.dll">
       <publishTime>10/25/2016 16:26:38</publishTime>
@@ -86,22 +86,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/25/2016 14:53:48</publishTime>
     </File>
     <File Include="bin/OneApp.Common.Core.dll">
-      <publishTime>12/08/2016 02:57:42</publishTime>
+      <publishTime>08/12/2016 14:23:10</publishTime>
     </File>
     <File Include="bin/OneApp.Common.WebServices.dll">
-      <publishTime>12/08/2016 02:57:46</publishTime>
+      <publishTime>10/12/2016 09:26:34</publishTime>
     </File>
     <File Include="bin/OneApp.Modules.Authentication.Data.dll">
-      <publishTime>12/08/2016 02:57:49</publishTime>
+      <publishTime>10/12/2016 07:54:15</publishTime>
     </File>
     <File Include="bin/OneApp.Modules.Authentication.WebServices.dll">
-      <publishTime>12/08/2016 02:57:51</publishTime>
+      <publishTime>10/12/2016 09:26:36</publishTime>
     </File>
     <File Include="bin/OneApp.Modules.Styles.dll">
-      <publishTime>12/08/2016 02:57:48</publishTime>
+      <publishTime>10/12/2016 17:54:06</publishTime>
     </File>
     <File Include="bin/OneApp.StartUp.dll">
-      <publishTime>12/08/2016 02:57:52</publishTime>
+      <publishTime>12/10/2016 19:26:24</publishTime>
     </File>
     <File Include="bin/Owin.dll">
       <publishTime>10/13/2016 16:59:42</publishTime>
@@ -158,13 +158,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/25/2016 14:34:05</publishTime>
     </File>
     <File Include="Global.asax">
+      <publishTime>04/12/2016 02:20:51</publishTime>
+    </File>
+    <File Include="log4net.config">
       <publishTime>12/04/2016 02:20:51</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>12/04/2016 02:20:51</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/08/2016 02:57:56</publishTime>
+      <publishTime>10/12/2016 19:25:03</publishTime>
     </File>
   </ItemGroup>
 </Project>

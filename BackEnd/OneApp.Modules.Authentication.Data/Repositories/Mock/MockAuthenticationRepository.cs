@@ -28,6 +28,16 @@ namespace OneApp.Modules.Authentication.Data.Repositories.Mock
                 PasswordHash = HashPassword("123456")
 
             });
+            _users.Add(new IdentityUserDTO
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = "ali2008_cv@yahoo.com",
+                Email = "ali2008_cv@yahoo.com",
+                PhoneNumber = "201068042823",
+                EmailConfirmed = true,
+                PasswordHash = HashPassword("123456")
+
+            });
         } 
          public MockAuthenticationRepository()
         {

@@ -1,32 +1,24 @@
-import { Injectable } from '@angular/core';
-import { AuthenticationData } from '../models/authenticationData'
-import { OneAppNavigationService } from './oneAppNavigation.service';
-
+import { Injectable, EventEmitter } from '@angular/core';
+import { AuthenticationData } from '../models'
+import { OneAppUIService } from './oneAppUI.service';
+import { RuleEntityScope } from '../../../pages/styles/models'
 @Injectable()
 export class OneAppAuthenticationService {
   /**
    *
    */
-  constructor(private oneAppNavigationService: OneAppNavigationService) {
+  authenticationChanged: EventEmitter<AuthenticationData> = new EventEmitter<AuthenticationData>();
+
+  constructor( private oneAppUIService: OneAppUIService) {
   }
   private localStorageService = window.localStorage;
   private storageKey = 'authorizationData';
   private _authentication: AuthenticationData = new AuthenticationData();
 
-  clearAuthenticationData(): void {
-    this.localStorageService.removeItem(this.storageKey);
-    this._authentication.isAuth = false;
-    this._authentication.username = null;
-    this._authentication.access_token = null;
-    this._authentication.token_type = null;
-    this._authentication.expires_in = null;
-
-  };
-
 
   public setAuthentication(authenticationData: AuthenticationData): void {
     if (authenticationData) {
-      this._authentication.isAuth = authenticationData.isAuth;
+      this._authentication.isAuthenticated = authenticationData.isAuthenticated;
       this._authentication.username = authenticationData.username;
       this._authentication.access_token = authenticationData.access_token;
       this._authentication.token_type = authenticationData.token_type;
@@ -35,8 +27,18 @@ export class OneAppAuthenticationService {
       localStorage.setItem(this.storageKey, JSON.stringify(this._authentication));
     }
     else {
-      this.clearAuthenticationData();
+      this._authentication.isAuthenticated = false;
+      this._authentication.username = null;
+      this._authentication.access_token = null;
+      this._authentication.token_type = null;
+      this._authentication.expires_in = null;
+
+      this.localStorageService.removeItem(this.storageKey);
+      this.oneAppUIService.removeUserStyleIfExists(RuleEntityScope.User)
+
+
     }
+    this.authenticationChanged.emit(this._authentication);
 
   }
   public loadData(): boolean {
@@ -46,9 +48,13 @@ export class OneAppAuthenticationService {
       this.setAuthentication(authenticationData);
       return true;
     }
-    return false
+    else {
+      this.setAuthentication(null);
+      return false;
+    }
+
   }
- 
+
   public getAuthenticationData(): AuthenticationData {
     return this._authentication
   };

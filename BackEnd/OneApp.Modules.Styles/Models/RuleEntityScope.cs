@@ -13,13 +13,10 @@ namespace OneApp.Modules.Styles.Models
         /// <summary>
         /// rule style Not specific to any entity
         /// </summary>
-        All = 0,
+        Global = 0,
         /// <summary>
         /// style can be customized for specific user
         /// </summary>
-        User = 1,
-
-        Survey = 2
-
+        User = 1
     }
 }
