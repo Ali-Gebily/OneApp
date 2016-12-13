@@ -94,12 +94,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EntityFramework\StylesEFRepository.cs" />
     <Compile Include="Repositories\IStylesRepository.cs" />
-    <Compile Include="Repositories\Mock\Models\MockBaseModel.cs" />
     <Compile Include="Repositories\Mock\Models\MockFile.cs" />
     <Compile Include="Repositories\Mock\Models\MockRule.cs" />
     <Compile Include="Repositories\Mock\Models\MockStyle.cs" />
     <Compile Include="Repositories\Mock\Models\MockStyleCustomization.cs" />
-    <Compile Include="Repositories\Mock\Models\StylesMockContext.cs" />
     <Compile Include="Repositories\Mock\StylesMockRepository.cs" />
   </ItemGroup>
   <ItemGroup>

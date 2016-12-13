@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using OneApp.Common.Core.DAL.Mock;
 using OneApp.Modules.Styles.Models;
 
 namespace OneApp.Modules.Styles.Repositories.Mock.Models
@@ -19,25 +20,10 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
 
         public string Category { get; set; }
 
+         
 
-        public long DefaultStyleId { get; set; }
-
-        public MockStyle DefaultStyle
-        {
-            get
-            {
-                return StylesMockContext.Styles.FirstOrDefault(s => s.Id == this.DefaultStyleId);
-            }
-            set
-            {
-                if (value == null)
-                {
-                    throw new Exception("DefaultStyle can't be null");
-                }
-                StylesMockContext.Styles.Add(value);
-                DefaultStyleId = value.Id;
-            }
-        }
+        public MockStyle DefaultStyle{ get; set; }
+        List<MockStyleCustomization> StyleCustomizations { get; set; } = new List<MockStyleCustomization>();
 
         public RuleSummaryDTO GetRuleSummaryDTO()
         {
@@ -66,7 +52,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
             var dto = new RuleDTO();
             setRuleSummaryProperties(dto);
 
-            var customStyle = StylesMockContext.StyleCustomizations.Where(sc => sc.RuleId == this.Id && sc.EntityId == entityId).FirstOrDefault();
+            var customStyle = StyleCustomizations.Where(sc => sc.EntityId == entityId).FirstOrDefault();
             if (customStyle == null)
             {
                 dto.Style = this.DefaultStyle.GetStyleDTO();
@@ -90,13 +76,12 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
                     {
                         throw new Exception("EntityId can't be null for if scope is not All");
                     }
-                    var customStyle = StylesMockContext.StyleCustomizations.Where(sc => sc.RuleId == this.Id && sc.EntityId == entityId).FirstOrDefault();
+                    var customStyle = StyleCustomizations.Where(sc => sc.EntityId == entityId).FirstOrDefault();
                     if (customStyle == null)
                     {
                         customStyle = new MockStyleCustomization
                         {
-                            EntityId = entityId,
-                            RuleId = this.Id,
+                            EntityId = entityId
                         };
                         /*
                         before setting style properties from dto, we need to copy default style first then update 
@@ -104,7 +89,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
                         */
                         customStyle.Style = new MockStyle(this.DefaultStyle);
                         customStyle.Style.SetStyleProperties(dto);
-                        StylesMockContext.StyleCustomizations.Add(customStyle);
+                        StyleCustomizations.Add(customStyle);
                     }
                     else
                     {

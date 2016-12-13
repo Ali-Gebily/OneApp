@@ -6,7 +6,7 @@ using OneApp.Modules.Styles.Models;
 
 namespace OneApp.Modules.Styles.Repositories.Mock.Models
 {
-    public class MockStyle : MockBaseModel, IStyleMapper
+    public class MockStyle : IStyleMapper
     {
 
         public MockStyle()

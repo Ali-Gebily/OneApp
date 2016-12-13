@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace OneApp.Modules.Styles.Repositories.Mock.Models
+namespace OneApp.Common.Core.DAL.Mock
 {
-    public class MockBaseModel
+    public abstract class MockBaseModel<TKey> : IUniqueMockEntity
+    {
+        public abstract void SetPrimaryKey();
+         
+    }
+    public class MockBaseModel : MockBaseModel<int>
     {
         static Dictionary<string, int> _idsSequencer = new Dictionary<string, int>();
 
-        public int GetNextId()
+        public int Id { get; set; }
+
+        public override void SetPrimaryKey()
         {
             lock (_idsSequencer)
             {
@@ -20,15 +27,9 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
                 }
                 _idsSequencer[guid] = _idsSequencer[guid] + 1;
 
-                return _idsSequencer[guid];
+                Id = _idsSequencer[guid];
             }
         }
-
-        public int Id { get; private set; }
-
-        public MockBaseModel()
-        {
-            Id = GetNextId();
-        }
     }
+
 }

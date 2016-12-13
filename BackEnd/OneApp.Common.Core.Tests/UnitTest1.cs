@@ -9,6 +9,7 @@ namespace OneApp.Common.Core.Tests
         [TestMethod]
         public void TestMethod1()
         {
+        
         }
     }
 }
