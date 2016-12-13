@@ -8,7 +8,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
     public class MockStyleCustomization
     {
 
-
+        public string UserId { get; set; }
 
         public string EntityId { get; set; }
 

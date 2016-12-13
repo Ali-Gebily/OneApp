@@ -135,79 +135,75 @@ namespace OneApp.Modules.Styles.Repositories.Mock
 
 
 
-        public async Task<List<RuleDTO>> GetStyles(RuleEntityScope scope, string entityId)
+        public async Task<List<RuleDTO>> GetStyles(RuleEntityScope scope, string userId, string entityId)
         {
-            return _muw.Repository<MockRule>().GetList(r => r.Scope == scope).Select(r => r.GetRuleDTO(entityId)).ToList();
+            return _muw.Repository<MockRule>().GetList(r => r.Scope == scope).Select(r => r.GetRuleDTO(userId, entityId)).ToList();
         }
         public async Task<List<RuleSummaryDTO>> GetRulesSummary(RuleEntityScope scope)
         {
             return _muw.Repository<MockRule>().GetList(r => r.Scope == scope).Select(r => r.GetRuleSummaryDTO()).ToList();
         }
-        public async Task<RuleDTO> GetRule(int id, string entityId)
+        public async Task<RuleDTO> GetRule(int id, string userId, string entityId)
         {
-            return _muw.Repository<MockRule>().GetList(r => r.Id == id).Select(r => r.GetRuleDTO(entityId)).FirstOrDefault();
+            return _muw.Repository<MockRule>().GetList(r => r.Id == id).Select(r => r.GetRuleDTO(userId, entityId)).FirstOrDefault();
 
         }
-        public async Task<RuleDTO> UpdateRuleStyle(RuleDTO newRuleDto, IEnumerable<FileDataDTO> fileDtos, string entityId)
+        public async Task<RuleDTO> UpdateRuleStyle(RuleDTO newRuleDto, IEnumerable<FileDataDTO> fileDtos, string userId, string entityId)
         {
 
             if (fileDtos != null)
             {
                 foreach (var fileData in fileDtos)
                 {
-                    newRuleDto.Style.SetFilePropertyWithId(fileData.CssProperty, await InsertFileData(fileData));
+
+                    var mockFile = new MockFile
+                    {
+                        Data = fileData.Data,
+                        ContentType = fileData.ContentType,
+                        Length = fileData.Length,
+                        Name = fileData.Name
+                    };
+                    _muw.Repository<MockFile>().Insert(mockFile);
+                    _muw.SaveChanges();
+                    newRuleDto.Style.SetFilePropertyWithId(fileData.CssProperty,  mockFile.Id);
 
                 }
             }
 
             //remove old files 
-            var oldRuleDTO = await this.GetRule(newRuleDto.Id, entityId);
+            var oldRuleDTO = await this.GetRule(newRuleDto.Id, userId, entityId);
             var clientFilePropertiesValues = newRuleDto.Style.GetFilePropertiesValues();
             var oldFilePropertiesValues = oldRuleDTO.Style.GetFilePropertiesValues();
 
-            foreach (var oldValue in oldFilePropertiesValues)
+            foreach (var oldFileIdValue in oldFilePropertiesValues)
             {
 
-                if (!clientFilePropertiesValues.Contains(oldValue))//the file is delete or replaced with another one, then delete old one
+                if (!clientFilePropertiesValues.Contains(oldFileIdValue))//the file is delete or replaced with another one, then delete old one
                 {
-                    await this.RemoveFileData(oldValue);
+                    _muw.Repository<MockFile>().Delete(_muw.Repository<MockFile>().FirstOrDefault(fd => fd.Id == oldFileIdValue));
+
                 }
             }
-
+            _muw.SaveChanges();
             var oldMockRule = _muw.Repository<MockRule>().GetList(r => r.Id == newRuleDto.Id).FirstOrDefault();
             if (oldRuleDTO == null)
             {
                 throw new Exception("No Css rule with Id=" + newRuleDto.Id);
             }
-            oldMockRule.SetRuleStyle(newRuleDto.Style, entityId);
-
-            return oldMockRule.GetRuleDTO(entityId);
-        }
-
-        async Task<int> InsertFileData(FileDataDTO fileData)
-        {
-            var mockFile = new MockFile
-            {
-                Data = fileData.Data,
-                ContentType = fileData.ContentType,
-                Length = fileData.Length,
-                Name = fileData.Name
-            };
-            _muw.Repository<MockFile>().Insert(mockFile);
+            oldMockRule.SetRuleStyle(newRuleDto.Style, userId, entityId);
             _muw.SaveChanges();
-            return mockFile.Id;
+
+            return oldMockRule.GetRuleDTO(userId, entityId);
         }
+
+
 
         public async Task<FileDataDTO> GetFileData(int id)
         {
             var saveFile = _muw.Repository<MockFile>().FirstOrDefault(fd => fd.Id == id);
             return saveFile == null ? null : new FileDataDTO(saveFile);
         }
-        async Task RemoveFileData(int id)
-        {
-            _muw.Repository<MockFile>().Delete(_muw.Repository<MockFile>().FirstOrDefault(fd => fd.Id == id));
-            _muw.SaveChanges();
-        }
+
 
 
     }

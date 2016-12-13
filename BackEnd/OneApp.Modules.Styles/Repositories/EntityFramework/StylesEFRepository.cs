@@ -12,7 +12,7 @@ namespace OneApp.Modules.Styles.WebServices.Repositories.EntityFramework
     {
          
 
-        public System.Threading.Tasks.Task<List<RuleDTO>> GetStyles(RuleEntityScope scope, string entityId)
+        public System.Threading.Tasks.Task<List<RuleDTO>> GetStyles(RuleEntityScope scope, string userId, string entityId)
         {
             throw new NotImplementedException();
         }
@@ -22,7 +22,7 @@ namespace OneApp.Modules.Styles.WebServices.Repositories.EntityFramework
             throw new NotImplementedException();
         }
 
-        public System.Threading.Tasks.Task<RuleDTO> GetRule(int id,   string entityId)
+        public System.Threading.Tasks.Task<RuleDTO> GetRule(int id, string userId, string entityId)
         {
             throw new NotImplementedException();
         }
@@ -37,7 +37,7 @@ namespace OneApp.Modules.Styles.WebServices.Repositories.EntityFramework
             throw new NotImplementedException();
         }
 
-        public Task<RuleDTO> UpdateRuleStyle(RuleDTO rule, IEnumerable<FileDataDTO> fileDtos, string entityId)
+        public Task<RuleDTO> UpdateRuleStyle(RuleDTO rule, IEnumerable<FileDataDTO> fileDtos, string userId, string entityId)
         {
             throw new NotImplementedException();
         }

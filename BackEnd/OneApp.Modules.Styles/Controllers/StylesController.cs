@@ -34,6 +34,11 @@ namespace OneApp.Modules.Styles.Controllers
         [HttpGet]
         public async Task<BaseHttpActionResult> GetFormattedStyles([FromUri]GetFormattedRuleVM model)
         {
+            if (string.IsNullOrEmpty(model.entity_id))
+            {
+                model.entity_id = null;
+            }
+
             if ((model.Scope != RuleEntityScope.Global && model.Scope != RuleEntityScope.User) &&
                 string.IsNullOrEmpty(model.entity_id))//is not a global neither a user scope
             {
@@ -41,17 +46,13 @@ namespace OneApp.Modules.Styles.Controllers
             }
             if (model.Scope == RuleEntityScope.User)
             {
-                if (User.Identity.IsAuthenticated)
-                {
-                    model.entity_id = UserId;
-                }
-                else
+                if (!User.Identity.IsAuthenticated)
                 {
                     return new ErrorHttpActionResult(HttpStatusCode.Unauthorized, new ErrorResponse("You have to login to access user styles"));
                 }
             }
 
-            var styles = await _repo.GetStyles(model.Scope, model.entity_id);
+            var styles = await _repo.GetStyles(model.Scope, UserId, model.entity_id);
             StringBuilder sb = new StringBuilder();
             foreach (var item in styles)
             {
@@ -75,11 +76,10 @@ namespace OneApp.Modules.Styles.Controllers
         {
             if (string.IsNullOrEmpty(model.entity_id))
             {
-                //this line will cause an issue if the client asked for not global neither user scope rule, and he did not pass entityId
-                model.entity_id = UserId;
-
+                model.entity_id = null;
             }
-            return new SuccessHttpActionResult(await _repo.GetRule(model.id,model.entity_id));
+
+            return new SuccessHttpActionResult(await _repo.GetRule(model.id, UserId, model.entity_id));
         }
         [HttpPost]
         [Authorize]
@@ -88,9 +88,10 @@ namespace OneApp.Modules.Styles.Controllers
             var ruleJson = HttpContext.Current.Request.Form["rule"];
             var baseUrl = HttpContext.Current.Request.Form["base_url"];
             var entityId = HttpContext.Current.Request.Form["entity_id"];
-            if(string.IsNullOrEmpty(entityId))
+
+            if (string.IsNullOrEmpty(entityId))
             {
-                entityId = UserId;
+                entityId = null;
             }
             if (string.IsNullOrEmpty(ruleJson))
             {
@@ -117,8 +118,8 @@ namespace OneApp.Modules.Styles.Controllers
                 httpPostedFile.InputStream.Read(fileData.Data, 0, length);
                 fileDtos.Add(fileData);
             }
-        
-            var updateRule = await _repo.UpdateRuleStyle(rule,fileDtos, entityId);
+
+            var updateRule = await _repo.UpdateRuleStyle(rule, fileDtos, UserId, entityId);
 
             return new SuccessHttpActionResult(updateRule.Format(baseUrl));
         }

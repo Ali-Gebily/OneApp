@@ -20,9 +20,9 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
 
         public string Category { get; set; }
 
-         
 
-        public MockStyle DefaultStyle{ get; set; }
+
+        public MockStyle DefaultStyle { get; set; }
         List<MockStyleCustomization> StyleCustomizations { get; set; } = new List<MockStyleCustomization>();
 
         public RuleSummaryDTO GetRuleSummaryDTO()
@@ -40,19 +40,38 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
             dto.Description = this.Description;
             dto.Category = this.Category;
         }
-        public RuleDTO GetRuleDTO( string entityId)
-        { 
-
-            if (string.IsNullOrWhiteSpace(entityId) && this.Scope != RuleEntityScope.Global)
+        void validateParameters(string userId, string entityId)
+        {
+            switch (this.Scope)
             {
-                throw new Exception("entityId can't be empty for not global rules");
+                case RuleEntityScope.Global:
+                    break;
+                case RuleEntityScope.User:
+                    if (string.IsNullOrWhiteSpace(userId))
+                    {
+                        throw new Exception("userId can't be empty for not global rules");
 
+                    }
+                    break;
+                default:
+
+                    if (string.IsNullOrWhiteSpace(entityId))
+                    {
+                        throw new Exception("entityId can't be empty for not global/user rules");
+
+                    }
+                    break;
             }
+
+        }
+        public RuleDTO GetRuleDTO(string userId, string entityId)
+        {
+            validateParameters(userId, entityId);
             //we need to implement validator handlers so that we can entityId with respect to scope
             var dto = new RuleDTO();
             setRuleSummaryProperties(dto);
 
-            var customStyle = StyleCustomizations.Where(sc => sc.EntityId == entityId).FirstOrDefault();
+            var customStyle = StyleCustomizations.Where(sc => sc.UserId == userId && sc.EntityId == entityId).FirstOrDefault();
             if (customStyle == null)
             {
                 dto.Style = this.DefaultStyle.GetStyleDTO();
@@ -64,24 +83,23 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
             return dto;
         }
 
-        public void SetRuleStyle(StyleDTO dto, string entityId)
+        public void SetRuleStyle(StyleDTO dto, string userId, string entityId)
         {
+            validateParameters(userId, entityId);
             switch (this.Scope)
             {
                 case RuleEntityScope.Global:
                     this.DefaultStyle.SetStyleProperties(dto);
                     break;
                 default:
-                    if (string.IsNullOrEmpty(entityId))
-                    {
-                        throw new Exception("EntityId can't be null for if scope is not All");
-                    }
-                    var customStyle = StyleCustomizations.Where(sc => sc.EntityId == entityId).FirstOrDefault();
+                    var customStyle = StyleCustomizations.Where(sc => sc.UserId == userId && sc.EntityId == entityId).FirstOrDefault();
                     if (customStyle == null)
                     {
                         customStyle = new MockStyleCustomization
                         {
                             EntityId = entityId
+                            ,
+                            UserId = userId
                         };
                         /*
                         before setting style properties from dto, we need to copy default style first then update 
