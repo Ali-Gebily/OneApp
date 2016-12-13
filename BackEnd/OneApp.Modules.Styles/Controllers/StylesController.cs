@@ -99,6 +99,7 @@ namespace OneApp.Modules.Styles.Controllers
             RuleDTO rule = JsonConvert.DeserializeObject<RuleDTO>(ruleJson);
 
             // Get the uploaded files from the Files collection , add data to the fileinfo 
+            IList<FileDataDTO> fileDtos = new List<FileDataDTO>();
             foreach (var cssProperty in HttpContext.Current.Request.Files.AllKeys)
             {
 
@@ -108,30 +109,16 @@ namespace OneApp.Modules.Styles.Controllers
                 string contentType = httpPostedFile.ContentType;
                 string name = Path.GetFileName(httpPostedFile.FileName);
 
-                var fileData = new FileDataDTO();
+                var fileData = new FileDataDTO(cssProperty);
                 fileData.Data = new byte[length];
                 fileData.Name = name;
                 fileData.Length = length;
                 fileData.ContentType = contentType;
                 httpPostedFile.InputStream.Read(fileData.Data, 0, length);
-
-                rule.Style.SetFilePropertyWithId(cssProperty, await _repo.InsertFileData(fileData));
+                fileDtos.Add(fileData);
             }
-
-            //remove old files 
-            var oldRule = await _repo.GetRule(rule.Id,entityId);
-            var clientFilePropertiesValues = rule.Style.GetFilePropertiesValues();
-            var oldFilePropertiesValues = oldRule.Style.GetFilePropertiesValues();
-
-            foreach (var oldValue in oldFilePropertiesValues)
-            {
-
-                if (!clientFilePropertiesValues.Contains(oldValue))//the file is delete or replaced with another one, then delete old one
-                {
-                    await _repo.RemoveFileData(oldValue);
-                } 
-            }
-            var updateRule = await _repo.UpdateRuleStyle(rule, entityId);
+        
+            var updateRule = await _repo.UpdateRuleStyle(rule,fileDtos, entityId);
 
             return new SuccessHttpActionResult(updateRule.Format(baseUrl));
         }

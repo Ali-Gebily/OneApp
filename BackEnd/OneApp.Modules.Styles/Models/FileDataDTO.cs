@@ -19,8 +19,11 @@ namespace OneApp.Modules.Styles.Models
 
         public int Length { get; set; }
 
-        public FileDataDTO()
+       public string CssProperty { get; private set; }
+
+        public FileDataDTO(string cssProperty)
         {
+            this.CssProperty = cssProperty;
 
         }
         public FileDataDTO(MockFile file)

@@ -37,7 +37,7 @@ namespace OneApp.Modules.Styles.WebServices.Repositories.EntityFramework
             throw new NotImplementedException();
         }
 
-        public Task<RuleDTO> UpdateRuleStyle(RuleDTO rule, string entityId)
+        public Task<RuleDTO> UpdateRuleStyle(RuleDTO rule, IEnumerable<FileDataDTO> fileDtos, string entityId)
         {
             throw new NotImplementedException();
         }

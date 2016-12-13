@@ -13,12 +13,10 @@ namespace OneApp.Modules.Styles.Repositories
         Task<List<RuleDTO>> GetStyles(RuleEntityScope scope, string entityId);
 
         Task<List<RuleSummaryDTO>> GetRulesSummary(RuleEntityScope scope);
-        Task<RuleDTO> GetRule(int id,  string entityId);
+        Task<RuleDTO> GetRule(int id, string entityId);
         //we will return RuleDTO again to make sure that data is saved successfully
-        Task<RuleDTO> UpdateRuleStyle(RuleDTO rule, string entityId);
+        Task<RuleDTO> UpdateRuleStyle(RuleDTO newRuleDto, IEnumerable<FileDataDTO> newFilesDtos, string entityId);
 
-        Task<int> InsertFileData(FileDataDTO fileData);
         Task<FileDataDTO> GetFileData(int id);
-        Task RemoveFileData(int id);
     }
 }
