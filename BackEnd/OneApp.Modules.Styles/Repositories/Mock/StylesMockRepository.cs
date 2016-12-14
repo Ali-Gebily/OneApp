@@ -201,7 +201,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock
         public async Task<FileDataDTO> GetFileData(int id)
         {
             var saveFile = _muw.Repository<MockFile>().FirstOrDefault(fd => fd.Id == id);
-            return saveFile == null ? null : new FileDataDTO(saveFile);
+            return saveFile == null ? null : saveFile.GetFileDataDTO();
         }
 
 

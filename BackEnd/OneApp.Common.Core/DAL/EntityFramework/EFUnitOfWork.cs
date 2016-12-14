@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OneApp.Common.Core.DAL.EntityFramework
 {
-    internal class EFUnitOfWork<TContext> : IEFUnitOfWork<TContext>, IDisposable
+    public class EFUnitOfWork<TContext> : IEFUnitOfWork<TContext>, IDisposable
         where TContext : DbContext
     {
         public TContext Context { get; private set; }

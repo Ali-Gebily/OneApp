@@ -140,5 +140,16 @@ namespace OneApp.Modules.Styles.Controllers
             }
 
         }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_repo is IDisposable)
+                {
+                    (_repo as IDisposable).Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
     }
 }

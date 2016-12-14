@@ -8,6 +8,7 @@ using OneApp.Common.Core.Managers.Settings;
 using OneApp.Common.Core.Models;
 using OneApp.Modules.Styles.Repositories;
 using OneApp.Modules.Styles.Repositories.Mock;
+using OneApp.Modules.Styles.WebServices.Repositories.EntityFramework;
 
 namespace OneApp.Modules.Styles.Injectors
 {
@@ -23,7 +24,7 @@ namespace OneApp.Modules.Styles.Injectors
                     kernel.BindConcerteToAbstact<IStylesRepository, StylesMockRepository>();
                     break;
                 case AppDataSource.SqlServer:
-                    kernel.BindConcerteToAbstact<IStylesRepository, StylesMockRepository>();
+                    kernel.BindConcerteToAbstact<IStylesRepository, StylesEFRepository>();
                     break;
                 default:
                     throw new NotImplementedException(dataSource.ToString());

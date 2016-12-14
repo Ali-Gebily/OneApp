@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
-using Newtonsoft.Json;
-using OneApp.Modules.Styles.Repositories.Mock.Models;
+using Newtonsoft.Json; 
 
 namespace OneApp.Modules.Styles.Models
 {

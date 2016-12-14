@@ -1,21 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
-using OneApp.Common.Core.DAL.Mock;
+using OneApp.Common.Core.DAL.EntityFramework;
 using OneApp.Modules.Styles.Models;
 
-namespace OneApp.Modules.Styles.Repositories.Mock.Models
+namespace OneApp.Modules.Styles.Repositories.EntityFramework.Models
 {
-    public class MockFile : MockBaseModel
+    [Table("Files")]
+    public class EFFile: BaseEFModel
     {
+        [Required]
         public byte[] Data { get; set; }
 
+        [Required]
         public string ContentType { get; set; }
 
         public string Name { get; set; }
 
         public int Length { get; set; }
+         
+
 
         public FileDataDTO GetFileDataDTO()
         {

@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\OneAppAssemblyAttribute.cs" />
+    <Compile Include="DAL\EntityFramework\BaseDbContext.cs" />
     <Compile Include="DAL\EntityFramework\EFEntityRepository.cs" />
     <Compile Include="DAL\EntityFramework\EFUnitOfWork.cs" />
     <Compile Include="DAL\IEntityRepository.cs" />

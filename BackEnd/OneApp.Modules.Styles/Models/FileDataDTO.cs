@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using OneApp.Modules.Styles.Repositories.Mock.Models;
+using System.Web; 
 
 namespace OneApp.Modules.Styles.Models
 {
@@ -26,13 +25,9 @@ namespace OneApp.Modules.Styles.Models
             this.CssProperty = cssProperty;
 
         }
-        public FileDataDTO(MockFile file)
+        public FileDataDTO()
         {
-            this.ContentType = file.ContentType;
-            this.Data = file.Data;
-            this.Id = file.Id;
-            this.Length = file.Length;
-            this.Name = file.Name;
+
         }
 
     }

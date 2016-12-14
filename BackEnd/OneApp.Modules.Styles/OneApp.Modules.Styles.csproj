@@ -43,6 +43,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -92,6 +100,12 @@
     <Compile Include="Models\RuleSummaryDTO.cs" />
     <Compile Include="Models\StyleDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\EntityFramework\Models\BaseEFModel.cs" />
+    <Compile Include="Repositories\EntityFramework\Models\EFFile.cs" />
+    <Compile Include="Repositories\EntityFramework\Models\EFRule.cs" />
+    <Compile Include="Repositories\EntityFramework\Models\EFStyle.cs" />
+    <Compile Include="Repositories\EntityFramework\Models\EFStyleCustomization.cs" />
+    <Compile Include="Repositories\EntityFramework\StylesDbContext.cs" />
     <Compile Include="Repositories\EntityFramework\StylesEFRepository.cs" />
     <Compile Include="Repositories\IStylesRepository.cs" />
     <Compile Include="Repositories\Mock\Models\MockFile.cs" />
@@ -118,17 +132,6 @@
       <Project>{add683e1-0a8a-4665-89f4-c604d037a0c4}</Project>
       <Name>OneApp.Common.WebServices</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="web.Debug.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="web.Release.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
