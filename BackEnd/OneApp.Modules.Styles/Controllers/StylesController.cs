@@ -79,7 +79,7 @@ namespace OneApp.Modules.Styles.Controllers
                 model.entity_id = null;
             }
 
-            return new SuccessHttpActionResult(await _repo.GetRule(model.id, UserId, model.entity_id));
+            return new SuccessHttpActionResult(await _repo.GetRuleDetails(model.id, UserId, model.entity_id));
         }
         [HttpPost]
         [Authorize]

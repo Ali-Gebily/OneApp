@@ -21,7 +21,7 @@ namespace OneApp.Modules.Styles.Repositories.EntityFramework
                     Selector = item.Selector,
                     Name = item.Name,
                     Category = item.Category,
-                    Scope = Modules.Styles.Models.RuleEntityScope.Global,
+                    Scope =item.Scope,
                     DefaultStyle = new EFStyle()
                     {
                         Color = item.Style.Color,

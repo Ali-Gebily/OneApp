@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
 using OneApp.Common.Core.DAL.EntityFramework;
@@ -18,16 +19,17 @@ namespace OneApp.Modules.Styles.WebServices.Repositories.EntityFramework
 
         public async Task<List<RuleDTO>> GetStyles(RuleEntityScope scope, string userId, string entityId)
         {
-            return _muw.Repository<EFRule>().GetList(r => r.Scope == scope).Select(r => r.GetRuleDTO(userId, entityId)).ToList();
+            return _muw.Repository<EFRule>().GetList(r => r.Scope == scope, null, 
+                new Expression<Func<EFRule, object>>[] { (r => r.DefaultStyle)}).Select(r => r.GetRuleDTO(userId, entityId)).ToList();
 
         }
         public async Task<List<RuleSummaryDTO>> GetRulesSummary(RuleEntityScope scope)
         {
             return _muw.Repository<EFRule>().GetList(r => r.Scope == scope).Select(r => r.GetRuleSummaryDTO()).ToList();
         }
-        public async Task<RuleDTO> GetRule(int id, string userId, string entityId)
+        public async Task<RuleDTO> GetRuleDetails(int id, string userId, string entityId)
         {
-            return _muw.Repository<EFRule>().GetList(r => r.Id == id).Select(r => r.GetRuleDTO(userId, entityId)).FirstOrDefault();
+            return _muw.Repository<EFRule>().GetList(r => r.Id == id, null, new Expression<Func<EFRule, object>>[] { (r => r.DefaultStyle)}).Select(r => r.GetRuleDTO(userId, entityId)).FirstOrDefault();
 
         }
         public async Task<RuleDTO> UpdateRuleStyle(RuleDTO newRuleDto, IEnumerable<FileDataDTO> fileDtos, string userId, string entityId)
@@ -55,7 +57,7 @@ namespace OneApp.Modules.Styles.WebServices.Repositories.EntityFramework
                 }
 
                 //remove old files 
-                var oldRuleDTO = await this.GetRule(newRuleDto.Id, userId, entityId);
+                var oldRuleDTO = await this.GetRuleDetails(newRuleDto.Id, userId, entityId);
                 var clientFilePropertiesValues = newRuleDto.Style.GetFilePropertiesValues();
                 var oldFilePropertiesValues = oldRuleDTO.Style.GetFilePropertiesValues();
 
@@ -89,9 +91,9 @@ namespace OneApp.Modules.Styles.WebServices.Repositories.EntityFramework
         public async Task<FileDataDTO> GetFileData(int id)
         {
             var saveFile = _muw.Repository<EFFile>().FirstOrDefault(fd => fd.Id == id);
-            return saveFile == null ? null :saveFile.GetFileDataDTO();
+            return saveFile == null ? null : saveFile.GetFileDataDTO();
         }
-         
+
 
         public void Dispose()
         {

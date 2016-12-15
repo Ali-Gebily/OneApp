@@ -27,7 +27,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock
                     Selector = item.Selector,
                     Name = item.Name,
                     Category = item.Category,
-                    Scope = Modules.Styles.Models.RuleEntityScope.Global,
+                    Scope = item.Scope,
                     DefaultStyle = new MockStyle()
                     {
                         Color = item.Style.Color,
@@ -52,7 +52,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock
         {
             return _muw.Repository<MockRule>().GetList(r => r.Scope == scope).Select(r => r.GetRuleSummaryDTO()).ToList();
         }
-        public async Task<RuleDTO> GetRule(int id, string userId, string entityId)
+        public async Task<RuleDTO> GetRuleDetails(int id, string userId, string entityId)
         {
             return _muw.Repository<MockRule>().GetList(r => r.Id == id).Select(r => r.GetRuleDTO(userId, entityId)).FirstOrDefault();
 
@@ -80,7 +80,7 @@ namespace OneApp.Modules.Styles.Repositories.Mock
             }
 
             //remove old files 
-            var oldRuleDTO = await this.GetRule(newRuleDto.Id, userId, entityId);
+            var oldRuleDTO = await this.GetRuleDetails(newRuleDto.Id, userId, entityId);
             var clientFilePropertiesValues = newRuleDto.Style.GetFilePropertiesValues();
             var oldFilePropertiesValues = oldRuleDTO.Style.GetFilePropertiesValues();
 

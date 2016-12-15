@@ -25,7 +25,7 @@ namespace OneApp.Common.Core.DAL.EntityFramework
         public virtual IEnumerable<TEntity> GetList(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
+            params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> query = dbSet;
 
@@ -33,11 +33,12 @@ namespace OneApp.Common.Core.DAL.EntityFramework
             {
                 query = query.Where(filter);
             }
-
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            if (includes != null)
             {
-                query = query.Include(includeProperty);
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
             }
 
             if (orderBy != null)

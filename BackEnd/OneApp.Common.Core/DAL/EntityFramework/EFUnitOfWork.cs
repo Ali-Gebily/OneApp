@@ -40,24 +40,19 @@ namespace OneApp.Common.Core.DAL.EntityFramework
         {
             return this.Context.SaveChanges();
         }
-        private DbTransaction _transaction;
+        private DbContextTransaction _transaction;
         public void BeginTransaction()
         {
-            if (Context.Database.Connection.State != ConnectionState.Open)
-            {
-                Context.Database.Connection.Open();
-            }
-            _transaction = Context.Database.Connection.BeginTransaction(IsolationLevel.RepeatableRead);
+            _transaction =this.Context.Database.BeginTransaction();
         }
         public void Rollback()
         {
             _transaction.Rollback();
         }
-        public int Commit()
-        {
-            var saveChanges = SaveChanges();
+        public void Commit()
+        { 
             _transaction.Commit();
-            return saveChanges;
+          
         }
 
         public Dictionary<Type, object> repositories = new Dictionary<Type, object>();

@@ -18,14 +18,14 @@ namespace OneApp.Common.Core.DAL
         IEnumerable<TEntity> GetList(
                    Expression<Func<TEntity, bool>> filter = null,
                    Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                   string includeProperties = "");
+                     Expression<Func<TEntity, object>>[] includes = null);
 
         TEntity FirstOrDefault(Expression<Func<TEntity, bool>> filter);
 
         void Insert(TEntity entity);
         void Delete(TEntity entityToDelete);
         void Update(TEntity entityToUpdate);
-       
+
 
     }
 }

@@ -23,7 +23,7 @@ namespace OneApp.Common.Core.DAL.Mock
         public virtual IEnumerable<TEntity> GetList(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
+            params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> query = _savedList.AsQueryable<TEntity>();
 
@@ -31,13 +31,13 @@ namespace OneApp.Common.Core.DAL.Mock
             {
                 query = query.Where(filter);
             }
-
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            if (includes != null)
             {
-                query = query.Include(includeProperty);
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
             }
-
             if (orderBy != null)
             {
                 return orderBy(query).ToList();

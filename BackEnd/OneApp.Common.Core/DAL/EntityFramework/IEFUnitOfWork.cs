@@ -18,7 +18,7 @@ namespace OneApp.Common.Core.DAL.EntityFramework
 
         void Rollback();
 
-        int Commit();
+        void Commit();
         void Dispose();
 
         IEntityRepository<T> Repository<T>() where T : class;

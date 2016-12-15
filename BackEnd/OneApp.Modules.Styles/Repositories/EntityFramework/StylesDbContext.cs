@@ -13,6 +13,8 @@ namespace OneApp.Modules.Styles.Repositories.EntityFramework
     {
         public StylesDbContext()
         {
+            this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+
             Database.SetInitializer<StylesDbContext>(new StylesDbContextInitializer());
 
         }
@@ -28,8 +30,7 @@ namespace OneApp.Modules.Styles.Repositories.EntityFramework
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             
-            this.Database.Log = Console.Write;
-
+           
             //Configure default schema
             modelBuilder.HasDefaultSchema("Styling");
 
@@ -42,9 +43,9 @@ namespace OneApp.Modules.Styles.Repositories.EntityFramework
             rulesTable.Property(p => p.Selector).IsRequired();
             rulesTable.Property(p => p.Name).IsRequired();
             rulesTable.Property(p => p.Scope).IsRequired();
-            rulesTable.HasRequired(r => r.DefaultStyle).WithOptional().Map( s => s.MapKey("DefaultStyleId"));
-            rulesTable.HasMany(r => r.StyleCustomizations).WithRequired().Map( sc =>sc.MapKey("RuleId")) ;
-
+            rulesTable.HasRequired(r => r.DefaultStyle).WithOptional().Map( s => s.MapKey("DefaultStyleId")).WillCascadeOnDelete(true);
+            rulesTable.HasMany(r => r.StyleCustomizations).WithRequired().Map( sc =>sc.MapKey("RuleId")).WillCascadeOnDelete(true) ;
+            
             
 
             var styleCustomizationsTable = modelBuilder.Entity<EFStyleCustomization>().ToTable("StyleCustomizations");
