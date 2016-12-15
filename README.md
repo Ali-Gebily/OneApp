@@ -41,7 +41,7 @@ http://aligebily-001-site1.dtempurl.com
 
 # Notes
 - Currently, you can register, login, logout, change password, reset password. When you register or reset password, you will be asked for the email first and then application will send you an email with code that you provide in next step of registration of resetting password. 
-- We have implemented a feature that enables user to style the frontend. These styles, global or user level, can be updated from side menu in styles section
+- We have implemented a feature that enables user to style the frontend. These styles, global or user level, can be updated from side menu in styles section. currently setting text color, background color, and background image css properties are supported.
 - global styles are styles that affects all users of the system, while user's styles are only affecting current user. Global styles should be available only to admin users(will be implemented later).
 - The landing page in this application does not have accurate data or design.
 - All data shown in portal is mocked at client, except for authentication and styles data, that can mocked at server or retrieved from database based on configuration set on web.config in OneApp.StartUp project
