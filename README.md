@@ -48,6 +48,11 @@ http://aligebily-001-site1.dtempurl.com
 - For sending emails, you have to configure appsettings related to smtp server and sender email. you can hit this url(http://localhost:55475/api/textEncryption/Encrypt?clearText=yourpassword) to get the encoded password and set it in you mail settings. the "EmailFromEncodedPassword" key in web.config is not valid, set your email and your own password encoded using previous mentioned url. 
 - Unit and integration tests are not implemented yet.
 
-
+# To Do
+----------
+- Unit and integrations tests for existing modules. I know that I should be Test driven developer, but currently I am working on going to this development style. 
+- implement user profile(picture + date of birth + job,...) and editing it.
+- implement roles and permissions in backend and frontend
+- Minify frontend output and remove extra modules.
 
 
