@@ -12,12 +12,10 @@ namespace OneApp.Modules.Styles.Repositories.EntityFramework
     public class StylesDbContext : BaseDbContext
     {
         public StylesDbContext()
-        {
-            this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-
+        { 
             Database.SetInitializer<StylesDbContext>(new StylesDbContextInitializer());
 
-        }
+         }
         public DbSet<EFRule> Rules { get; set; }
 
 
