@@ -38,8 +38,8 @@ namespace OneApp.Modules.Styles.Repositories.EntityFramework
 
             var rulesTable = modelBuilder.Entity<EFRule>().ToTable("Rules");
             rulesTable.HasKey<int>(r => r.Id); 
-            rulesTable.Property(p => p.Selector).IsRequired();
-            rulesTable.Property(p => p.Name).IsRequired();
+            rulesTable.Property(p => p.Selector).IsUnicode(true).IsRequired();
+            rulesTable.Property(p => p.Name).IsUnicode(true).IsRequired();
             rulesTable.Property(p => p.Scope).IsRequired();
             rulesTable.HasRequired(r => r.DefaultStyle).WithOptional().Map( s => s.MapKey("DefaultStyleId")).WillCascadeOnDelete(true);
             rulesTable.HasMany(r => r.StyleCustomizations).WithRequired().Map( sc =>sc.MapKey("RuleId")).WillCascadeOnDelete(true) ;

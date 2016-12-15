@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using OneApp.Modules.Styles.Models;
@@ -13,15 +14,14 @@ namespace OneApp.Modules.Styles.Repositories.EntityFramework
         protected override void Seed(StylesDbContext context)
         {
             List<RuleDTO> rules = StylesDataInitializer.GetRules();
-            
             foreach (var item in rules)
             {
-                context.Rules.Add(new EFRule
+                context.Rules.AddOrUpdate(a => new { a.Selector }, new EFRule
                 {
                     Selector = item.Selector,
                     Name = item.Name,
                     Category = item.Category,
-                    Scope =item.Scope,
+                    Scope = item.Scope,
                     DefaultStyle = new EFStyle()
                     {
                         Color = item.Style.Color,
@@ -33,6 +33,8 @@ namespace OneApp.Modules.Styles.Repositories.EntityFramework
                 });
 
             }
+            context.SaveChanges();
         }
+          
     }
 }
