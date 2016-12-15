@@ -8,9 +8,14 @@ The application is divided into three layers
   - Web services(business) layer 
   - UI(frontend) layer
 
-We use Ninject library (http://www.ninject.org/) to manage dependency injection in the backend. And we also use Automapper library (http://automapper.org/) to manage mapping between database objects and data transfer objects (DTOs).
-For logging, we use log4net library. 
-For sql server queries, we are using EF code first, with migrations, while we are using MongDb driver for dealing with MonogDB.
+# Techinical Notes
+----------------------------
+- We use Ninject library (http://www.ninject.org/) to manage dependency injection in the backend. 
+- We use Automapper library (http://automapper.org/) to manage mapping between database objects and data transfer objects (DTOs).
+- For logging, we use log4net library. 
+- For sql server queries, we are using EF code first, with migrations, 
+- we are using MongDb driver for dealing with MonogDB.
+- We use Repository, and UnitOfWork patterns to access data stores. Currently, it's fully applied to OneApp.Modules.Styles project, and other projects will be refactored to use the same patterns.
  
 # Demo url
 http://aligebily-001-site1.dtempurl.com
@@ -42,5 +47,7 @@ http://aligebily-001-site1.dtempurl.com
 - All data shown in portal is mocked at client, except for authentication and styles data, that can mocked at server or retrieved from database based on configuration set on web.config in OneApp.StartUp project
 - For sending emails, you have to configure appsettings related to smtp server and sender email. you can hit this url(http://localhost:55475/api/textEncryption/Encrypt?clearText=yourpassword) to get the encoded password and set it in you mail settings. the "EmailFromEncodedPassword" key in web.config is not valid, set your email and your own password encoded using previous mentioned url. 
 - Unit and integration tests are not implemented yet.
+
+
 
 
