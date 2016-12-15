@@ -7,8 +7,7 @@ using OneApp.Modules.Styles.Models;
 
 namespace OneApp.Modules.Styles.Repositories.EntityFramework.Models
 {
-    [Table("Styles")]
-    public class EFStyle : BaseEFModel, IStyleMapper
+     public class EFStyle : BaseEFModel, IStyleMapper
     {
         public EFStyle()
         {
@@ -27,7 +26,7 @@ namespace OneApp.Modules.Styles.Repositories.EntityFramework.Models
 
         public int? BackgroundImage { get; set; }
 
-       
+    
 
         public StyleDTO GetStyleDTO()
         {

@@ -106,6 +106,7 @@
     <Compile Include="Repositories\EntityFramework\Models\EFStyle.cs" />
     <Compile Include="Repositories\EntityFramework\Models\EFStyleCustomization.cs" />
     <Compile Include="Repositories\EntityFramework\StylesDbContext.cs" />
+    <Compile Include="Repositories\EntityFramework\StylesDbContextInitializer.cs" />
     <Compile Include="Repositories\EntityFramework\StylesEFRepository.cs" />
     <Compile Include="Repositories\IStylesRepository.cs" />
     <Compile Include="Repositories\Mock\Models\MockFile.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Repositories\Mock\Models\MockStyle.cs" />
     <Compile Include="Repositories\Mock\Models\MockStyleCustomization.cs" />
     <Compile Include="Repositories\Mock\StylesMockRepository.cs" />
+    <Compile Include="Repositories\StylesDataInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

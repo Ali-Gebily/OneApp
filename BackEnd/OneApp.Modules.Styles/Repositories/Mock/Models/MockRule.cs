@@ -25,6 +25,9 @@ namespace OneApp.Modules.Styles.Repositories.Mock.Models
         public MockStyle DefaultStyle { get; set; }
         List<MockStyleCustomization> StyleCustomizations { get; set; } = new List<MockStyleCustomization>();
 
+
+
+
         public RuleSummaryDTO GetRuleSummaryDTO()
         {
             var summaryDto = new RuleSummaryDTO();

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using OneApp.Common.Core.DAL.EntityFramework;
@@ -9,25 +7,19 @@ using OneApp.Modules.Styles.Models;
 
 namespace OneApp.Modules.Styles.Repositories.EntityFramework.Models
 {
-    [Table("Rules")]
     public class EFRule : BaseEFModel, IRuleMapper
     {
-        [Required]
         public string Selector { get; set; }
 
-        [Required]
         public RuleEntityScope Scope { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }
 
         public string Category { get; set; }
 
-        [Required,ForeignKey("DefaultStyle")]
-        public int DefaultStyleId { get; set; }
-
+ 
         public EFStyle DefaultStyle { get; set; }
 
 
@@ -78,15 +70,21 @@ namespace OneApp.Modules.Styles.Repositories.EntityFramework.Models
             //we need to implement validator handlers so that we can entityId with respect to scope
             var dto = new RuleDTO();
             setRuleSummaryProperties(dto);
-
-            var customStyle = StyleCustomizations.Where(sc => sc.UserId == userId && sc.EntityId == entityId).FirstOrDefault();
-            if (customStyle == null)
+            if (dto.Scope == RuleEntityScope.Global)
             {
                 dto.Style = this.DefaultStyle.GetStyleDTO();
             }
             else
             {
-                dto.Style = customStyle.Style.GetStyleDTO();
+                var customStyle = StyleCustomizations.Where(sc => sc.UserId == userId && sc.EntityId == entityId).FirstOrDefault();
+                if (customStyle == null)
+                {
+                    dto.Style = this.DefaultStyle.GetStyleDTO();
+                }
+                else
+                {
+                    dto.Style = customStyle.Style.GetStyleDTO();
+                }
             }
             return dto;
         }

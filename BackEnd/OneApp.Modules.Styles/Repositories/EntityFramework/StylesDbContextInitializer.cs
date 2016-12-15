@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using OneApp.Modules.Styles.Models;
 using OneApp.Modules.Styles.Repositories.EntityFramework.Models;
 
 namespace OneApp.Modules.Styles.Repositories.EntityFramework
@@ -11,7 +12,27 @@ namespace OneApp.Modules.Styles.Repositories.EntityFramework
     {
         protected override void Seed(StylesDbContext context)
         {
-           
+            List<RuleDTO> rules = StylesDataInitializer.GetRules();
+            
+            foreach (var item in rules)
+            {
+                context.Rules.Add(new EFRule
+                {
+                    Selector = item.Selector,
+                    Name = item.Name,
+                    Category = item.Category,
+                    Scope = Modules.Styles.Models.RuleEntityScope.Global,
+                    DefaultStyle = new EFStyle()
+                    {
+                        Color = item.Style.Color,
+                        BackgroundColor = item.Style.BackgroundColor,
+                        BackgroundImage = item.Style.BackgroundImage
+
+                    }
+
+                });
+
+            }
         }
     }
 }
