@@ -91,6 +91,15 @@
   <ItemGroup>
     <Compile Include="Controllers\StylesController.cs" />
     <Compile Include="Injectors\StylesInjector.cs" />
+    <Compile Include="Migrations\201612151325402_InitialStylesDbContext.cs" />
+    <Compile Include="Migrations\201612151325402_InitialStylesDbContext.Designer.cs">
+      <DependentUpon>201612151325402_InitialStylesDbContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612151328415_AddCreationDateToRule.cs" />
+    <Compile Include="Migrations\201612151328415_AddCreationDateToRule.Designer.cs">
+      <DependentUpon>201612151328415_AddCreationDateToRule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FileDataDTO.cs" />
     <Compile Include="Models\ControllApiRuleVM.cs" />
     <Compile Include="Models\IRuleMapper.cs" />
@@ -106,7 +115,6 @@
     <Compile Include="Repositories\EntityFramework\Models\EFStyle.cs" />
     <Compile Include="Repositories\EntityFramework\Models\EFStyleCustomization.cs" />
     <Compile Include="Repositories\EntityFramework\StylesDbContext.cs" />
-    <Compile Include="Repositories\EntityFramework\StylesDbContextInitializer.cs" />
     <Compile Include="Repositories\EntityFramework\StylesEFRepository.cs" />
     <Compile Include="Repositories\IStylesRepository.cs" />
     <Compile Include="Repositories\Mock\Models\MockFile.cs" />
@@ -134,6 +142,14 @@
       <Project>{add683e1-0a8a-4665-89f4-c604d037a0c4}</Project>
       <Name>OneApp.Common.WebServices</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201612151325402_InitialStylesDbContext.resx">
+      <DependentUpon>201612151325402_InitialStylesDbContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612151328415_AddCreationDateToRule.resx">
+      <DependentUpon>201612151328415_AddCreationDateToRule.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

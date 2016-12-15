@@ -15,7 +15,7 @@ namespace OneApp.Modules.Styles.WebServices.Repositories.EntityFramework
     public class StylesEFRepository : IStylesRepository, IDisposable
     {
         IEFUnitOfWork<StylesDbContext> _muw = new EFUnitOfWork<StylesDbContext>(new StylesDbContext());
-
+        
 
         public async Task<List<RuleDTO>> GetStyles(RuleEntityScope scope, string userId, string entityId)
         {

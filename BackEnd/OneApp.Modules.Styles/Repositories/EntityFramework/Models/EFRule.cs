@@ -19,7 +19,8 @@ namespace OneApp.Modules.Styles.Repositories.EntityFramework.Models
 
         public string Category { get; set; }
 
- 
+        public DateTime CreationDate { get; set; } = DateTime.Now;
+
         public EFStyle DefaultStyle { get; set; }
 
 

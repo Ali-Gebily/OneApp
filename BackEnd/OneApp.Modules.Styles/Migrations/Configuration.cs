@@ -1,16 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Web;
-using OneApp.Modules.Styles.Models;
-using OneApp.Modules.Styles.Repositories.EntityFramework.Models;
-
-namespace OneApp.Modules.Styles.Repositories.EntityFramework
+namespace OneApp.Modules.Styles.Migrations
 {
-    public class StylesDbContextInitializer : CreateDatabaseIfNotExists<StylesDbContext>
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+    using Models;
+    using Repositories.EntityFramework.Models;
+    using Repositories.EntityFramework;
+    using System.Collections.Generic;
+    using Repositories;
+    /// <summary>
+    ///For more details about migrations check: https://msdn.microsoft.com/en-us/data/jj591621
+    /// </summary>
+    internal sealed class Configuration : DbMigrationsConfiguration<OneApp.Modules.Styles.Repositories.EntityFramework.StylesDbContext>
     {
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = false;
+        }
+
         protected override void Seed(StylesDbContext context)
         {
             List<RuleDTO> rules = StylesDataInitializer.GetRules();
@@ -35,6 +43,6 @@ namespace OneApp.Modules.Styles.Repositories.EntityFramework
             }
             context.SaveChanges();
         }
-          
+
     }
 }

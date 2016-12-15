@@ -4,17 +4,21 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using OneApp.Common.Core.DAL.EntityFramework;
-using OneApp.Common.Core.Managers.Settings;
 using OneApp.Modules.Styles.Repositories.EntityFramework.Models;
 
 namespace OneApp.Modules.Styles.Repositories.EntityFramework
 {
     public class StylesDbContext : BaseDbContext
     {
+        static StylesDbContext()
+        {
+            //used for automatic migrations
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<StylesDbContext, OneApp.Modules.Styles.Migrations.Configuration>());
+
+        }
         public StylesDbContext()
         { 
-            Database.SetInitializer<StylesDbContext>(new StylesDbContextInitializer());
-
+      
          }
         public DbSet<EFRule> Rules { get; set; }
 
