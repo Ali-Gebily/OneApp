@@ -1,6 +1,6 @@
 # OneApp
 OneApp is a framework built using ASP.net/C# for backend  and Angular2 for Frontend.
-Front end is based mainly on ng2-admin Angular 2 template(https://github.com/akveo/ng2-admin). we currenly extended it to add support for authentication(register with email confirmation - login - reset password using email code - change password )
+Front end is based mainly on ng2-admin Angular 2 template(https://github.com/akveo/ng2-admin). we extended it to add support for authentication(register with email confirmation - login - reset password using email code - change password - logout)
 The backend of authentication supports SQLserver + MongoDB + Mock data repositories, and we are looking forward to supporting LDAP soon.
 
 The application is divided into three layers
@@ -8,12 +8,12 @@ The application is divided into three layers
   - Web services(business) layer 
   - UI(frontend) layer
 
-We use Ninject library (http://www.ninject.org/) to manage dependency injection in the backend. And we also use Automapper library (http://automapper.org/) to manage mapping between database objects and Data transfer objects (DTO).
+We use Ninject library (http://www.ninject.org/) to manage dependency injection in the backend. And we also use Automapper library (http://automapper.org/) to manage mapping between database objects and data transfer objects (DTOs).
 For logging, we use log4net library. 
-For sql server queries, we are using EF code first, while we are using MongDb driver for dealing with MonogDB.
+For sql server queries, we are using EF code first, with migrations, while we are using MongDb driver for dealing with MonogDB.
  
 # Demo url
-http://aligebily-001-site1.dtempurl.com/frontend/index.html 
+http://aligebily-001-site1.dtempurl.com
 
 # To run the project
 ---------------
@@ -35,9 +35,11 @@ http://aligebily-001-site1.dtempurl.com/frontend/index.html
 
 
 # Notes
-- you can register, login, logout, change password, reset password. When you register or reset password, you will be asked for the email first and then application will send you an email with code that you provide in next step of registration of resetting password. 
+- Currently, you can register, login, logout, change password, reset password. When you register or reset password, you will be asked for the email first and then application will send you an email with code that you provide in next step of registration of resetting password. 
+- We have implemented a feature that enables user to style the frontend. These styles, global or user level, can be updated from side menu in styles section
+- global styles are styles that affects all users of the system, while user's styles are only affecting current user. Global styles should be available only to admin users(will be implemented later).
 - The landing page in this application does not have accurate data or design.
-- All data shown in portal is mocked at client, except for authentication data that can mocked at server or retrieved from database based on configuration set on web.config in OneApp.StartUp project
+- All data shown in portal is mocked at client, except for authentication and styles data, that can mocked at server or retrieved from database based on configuration set on web.config in OneApp.StartUp project
 - For sending emails, you have to configure appsettings related to smtp server and sender email. you can hit this url(http://localhost:55475/api/textEncryption/Encrypt?clearText=yourpassword) to get the encoded password and set it in you mail settings. the "EmailFromEncodedPassword" key in web.config is not valid, set your email and your own password encoded using previous mentioned url. 
 - Unit and integration tests are not implemented yet.
 
