@@ -19,6 +19,7 @@ The application is divided into three layers
  
 # Demo url
 http://aligebily-001-site1.dtempurl.com
+Note: The UI of the frontend is not the best one.
 
 # To run the project
 ---------------
